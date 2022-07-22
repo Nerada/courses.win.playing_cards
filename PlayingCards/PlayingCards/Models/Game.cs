@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using PlayingCards.Extensions;
 
 namespace PlayingCards.Models;
@@ -12,12 +13,11 @@ public class Game
         Lost
     }
 
-    private readonly List<Player> _players;
+    private readonly List<Player> _players = new();
 
-    public Game(List<Player> players)
-    {
-        _players = players;
-    }
+    public IReadOnlyList<Player> Players => new ReadOnlyCollection<Player>(_players);
+
+    public void AddPlayer(Player player) => _players.Add(player);
 
     public List<Player> PlayersWithTheHighestHand()
     {

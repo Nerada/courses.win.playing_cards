@@ -26,7 +26,9 @@ public class PlayingCardsT
         player1.GiveCards(cardsPlayerA);
         player2.GiveCards(cardsPlayerB);
 
-        Game game = new(new List<Player> {player1, player2});
+        Game game = new();
+        game.AddPlayer(player1);
+        game.AddPlayer(player2);
 
         game.PlayersWithHighestCard().Count.Should().Be(1);
         game.PlayersWithHighestCard()[0].PlayerName.Should().Be(result);
@@ -45,9 +47,11 @@ public class PlayingCardsT
         player1.GiveCards(cardsPlayerA);
         player2.GiveCards(cardsPlayerB);
 
-        Game game = new(new List<Player> {player1, player2});
+        Game game = new();
+        game.AddPlayer(player1);
+        game.AddPlayer(player2);
 
         game.PlayersWithTheHighestHand().Count.Should().Be(amountOfWinningPlayers);
-        if(amountOfWinningPlayers == 1) game.PlayersWithTheHighestHand()[0].PlayerName.Should().Be(nameOfWinningPlayer);
+        if (amountOfWinningPlayers == 1) game.PlayersWithTheHighestHand()[0].PlayerName.Should().Be(nameOfWinningPlayer);
     }
 }
