@@ -6,7 +6,7 @@ namespace PlayingCards.Models;
 
 public class Player
 {
-    private readonly List<Card> _cards = new();
+    private Hand? _hand;
 
     public Player(string playerName)
     {
@@ -15,18 +15,21 @@ public class Player
 
     public string PlayerName { get; }
 
-    public void AddCards(string cardsString)
+    public Hand Hand => _hand ?? throw new InvalidOperationException("No cards dealt yet");
+
+    public void GiveCards(string cardsString)
     {
         List<string> cardStrings = cardsString.Split().ToList();
+        List<Card>   cards       = new();
 
         cardStrings.ForEach(s =>
         {
             char   suit  = s[^1];
             string value = s.Remove(s.Length - 1);
 
-            _cards.Add(new Card(value, suit));
+            cards.Add(new Card(value, suit));
         });
-    }
 
-    public Card HighestCard() => _cards.MaxBy(c => c.Weight) ?? throw new InvalidOperationException();
+        _hand = new Hand(cards);
+    }
 }

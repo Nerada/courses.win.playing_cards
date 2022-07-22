@@ -1,43 +1,40 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using PlayingCards.Extensions;
 
 namespace PlayingCards.Models;
 
-public enum Suit
-{
-    Spades,
-    Clubs,
-    Hearts,
-    Diamonds
-}
-
 public class Card
 {
-    private readonly ReadOnlyDictionary<string, int> _cardWeight = new(new Dictionary<string, int>
+    public enum SuitType
     {
-        {"A", 13},
-        {"K", 12},
-        {"Q", 11},
-        {"J", 10},
-        {"10", 9},
-        {"9", 8},
-        {"8", 7},
-        {"7", 6},
-        {"6", 5},
-        {"5", 4},
-        {"4", 3},
-        {"3", 2},
-        {"2", 1}
-    });
+        Spades,
+        Clubs,
+        Hearts,
+        Diamonds
+    }
+
+    public enum ValueType
+    {
+        Ace,
+        King,
+        Queen,
+        Jack,
+        Ten,
+        Nine,
+        Eight,
+        Seven,
+        Six,
+        Five,
+        Four,
+        Three,
+        Two
+    }
 
     public Card(string value, char suit)
     {
-        Value  = value;
-        Suit   = suit.ToSuit();
-        Weight = _cardWeight[Value];
+        Value = value.ToValue();
+        Suit  = suit.ToSuit();
     }
 
-    public string Value  { get; }
-    public Suit   Suit   { get; }
-    public int    Weight { get; }
+    public ValueType Value { get; }
+    public SuitType  Suit  { get; }
 }

@@ -25,9 +25,9 @@ e.g.<br />
 
 | Player 1 | Player 2 | Result |
 | --- | --- | --- |
-| 2H 3D 5S 9C KD | 2C 3H 4S 8C AH | Player 1 wins - with high card: Ace |
-| 2H 4S 4C 2D 4H | 2S 8S AS QS 3S | Player 2 wins - with full house: 4 over 2 |
-| 2H 3D 5S 9C QD | 2C 3H 4S 8C KH | Player 1 wins - with high card: king |
+| 2H 3D 5S 9C KD | 2C 3H 4S 8C AH | Player 2 wins - with high card: Ace |
+| 2H 4S 4C 2D 4H | 2S 8S AS QS 3S | Player 1 wins - with full house: 4 over 2 |
+| 2H 3D 5S 9C QD | 2C 3H 4S 8C KH | Player 2 wins - with high card: king |
 | 2H 3D 5S 9C KD | 2D 3H 5C 9S KH | Tie |
 
 -----
