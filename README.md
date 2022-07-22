@@ -1,4 +1,4 @@
-# String Calculator [![Build Status](https://dev.azure.com/nerada/GitHub_Public/_apis/build/status/Nerada.courses.win.playing_cards?branchName=master)](https://dev.azure.com/nerada/GitHub_Public/_build/latest?definitionId=21&branchName=master)
+# Playing Cards [![Build Status](https://dev.azure.com/nerada/GitHub_Public/_apis/build/status/Nerada.courses.win.playing_cards?branchName=master)](https://dev.azure.com/nerada/GitHub_Public/_build/latest?definitionId=21&branchName=master)
 Practicing something together with the team.
 
 ## Details
