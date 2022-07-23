@@ -59,6 +59,8 @@ public class Hand
         _cards = cards;
     }
 
+    public IReadOnlyList<Card> Cards => new ReadOnlyCollection<Card>(_cards);
+
     public HandName Name => GetHandName(_cards);
 
     public Card HighestCard => GetHighestCard(_cards);

@@ -30,6 +30,8 @@ public class Player
             cards.Add(new Card(value, suit));
         });
 
-        _hand = new Hand(cards);
+        GiveCards(cards);
     }
+
+    public void GiveCards(List<Card> newCards) => _hand = new Hand(newCards);
 }

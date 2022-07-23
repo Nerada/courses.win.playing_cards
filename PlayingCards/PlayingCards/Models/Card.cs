@@ -29,10 +29,14 @@ public class Card
         Two
     }
 
-    public Card(string value, char suit)
+    public Card(string value, char suit) : this(value.ToValue(), suit.ToSuit())
     {
-        Value = value.ToValue();
-        Suit  = suit.ToSuit();
+    }
+
+    public Card(ValueType value, SuitType suit)
+    {
+        Value = value;
+        Suit  = suit;
     }
 
     public ValueType Value { get; }

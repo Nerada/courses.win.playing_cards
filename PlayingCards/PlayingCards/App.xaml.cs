@@ -12,19 +12,18 @@ public partial class App
 {
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        Player player1 = new("Player1");
-        Player player2 = new("Player2");
-
-        player1.GiveCards("10H 10S 9S 9H 10D");
-        player2.GiveCards("2D 2S 2C 2H 3S");
+        Player player1 = new("Nemesis");
+        Player player2 = new("Kronos");
+        Player player3 = new("Skadi");
 
         Game game = new();
         game.AddPlayer(player1);
         game.AddPlayer(player2);
+        game.AddPlayer(player3);
 
-        GameViewModel gameViewModel = new(game);
+        GameDeckViewModel gameDeckViewModel = new(game);
 
-        MainWindow mainWindow = new(gameViewModel);
+        MainWindow mainWindow = new(gameDeckViewModel);
         mainWindow.Show();
     }
 }

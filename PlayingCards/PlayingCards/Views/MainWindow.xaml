@@ -4,19 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
+        xmlns:views="clr-namespace:PlayingCards.Views"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
-        Title="MainWindow" Height="450" Width="800">
+        d:DataContext="{d:DesignInstance viewModels:GameDeckViewModel}"
+        Title="MainWindow" Height="530" Width="930">
     <Grid>
-        <ItemsControl ItemsSource="{Binding Players}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <Label Content="{Binding PlayerName}" />
-                        <Label Content="{Binding Hand.Name}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <views:CreatePlayerControl Grid.Row="0" Grid.Column="0" />
+        <views:GameDeckControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" DataContext="{Binding}"/>
+        <Button Grid.Row="0" Grid.Column="0" Content="Refresh" Command="{Binding RefreshCommand}"/>
     </Grid>
 </Window>
