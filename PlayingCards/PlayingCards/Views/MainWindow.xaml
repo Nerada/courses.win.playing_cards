@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:PlayingCards.Views"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:GameDeckViewModel}"
-        Title="MainWindow" Height="530" Width="930">
+        Title="MainWindow" Height="605" Width="1005">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Width="110" Height="150" BorderThickness="1" BorderBrush="LightGray">
-        <Grid  Background="White">
+    <Border Width="125" Height="175" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="White">
+        <Grid Background="Transparent">
             <Grid.Resources>
                 <FontFamily x:Key="Font" >/Resources/Fonts/#Marathon</FontFamily>
                 <Style x:Key="BaseTextStyle" TargetType="{x:Type Label}">
@@ -15,10 +15,11 @@
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                 </Style>
                 <Style x:Key="CardValueTextStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseTextStyle}">
-                    <Setter Property="FontSize" Value="30"/>
+                    <Setter Property="FontSize" Value="36"/>
+                    <Setter Property="Margin" Value="0,-3,0,0"/>
                 </Style>
                 <Style x:Key="CardSuitTextStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseTextStyle}">
-                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="FontSize" Value="18"/>
                 </Style>
                 <Style x:Key="StackPanelBase" TargetType="{x:Type StackPanel}">
                     <Setter Property="Width" Value="30"/>
@@ -46,7 +47,7 @@
                 <Label x:Name="ValueTopLeft" d:Content="A" Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitTopLeft" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="2" Style="{StaticResource StackPanelBase}">
+            <StackPanel Grid.Row="0" Grid.Column="2" Style="{StaticResource StackPanelBase}" Visibility="Hidden">
                 <Label x:Name="ValueTopRight" d:Content="A"  Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitTopRight" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
@@ -54,7 +55,7 @@
                 <Label x:Name="ValueBottomRight" d:Content="10"  Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitBottomRight" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
-            <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource UpsideDownStackPanel}">
+            <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource UpsideDownStackPanel}" Visibility="Hidden">
                 <Label x:Name="ValueBottomLeft" d:Content="A"  Style="{StaticResource CardValueTextStyle}"/>
                 <Label x:Name="SuitBottomLeft" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
