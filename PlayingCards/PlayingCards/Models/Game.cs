@@ -40,7 +40,7 @@ public class Game
 
     public void AddPlayer(Player player)
     {
-        player.GiveCards(RandomCards());
+        if (player.Hand.Cards.Count == 0) player.GiveCards(RandomCards());
         _players.Add(player);
     }
 

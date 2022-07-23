@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayingCards.Models;
 
 public class Player
 {
-    private Hand? _hand;
-
     public Player(string playerName)
     {
         PlayerName = playerName;
@@ -15,7 +12,7 @@ public class Player
 
     public string PlayerName { get; }
 
-    public Hand Hand => _hand ?? throw new InvalidOperationException("No cards dealt yet");
+    public Hand Hand { get; } = new();
 
     public void GiveCards(string cardsString)
     {
@@ -33,5 +30,5 @@ public class Player
         GiveCards(cards);
     }
 
-    public void GiveCards(List<Card> newCards) => _hand = new Hand(newCards);
+    public void GiveCards(List<Card> newCards) => Hand.GiveCards(newCards);
 }

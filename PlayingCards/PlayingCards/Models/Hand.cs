@@ -39,8 +39,6 @@ public class Hand
         {Card.ValueType.Two, 1}
     });
 
-    private readonly List<Card> _cards;
-
     private readonly ReadOnlyDictionary<HandName, int> _handWeight = new(new Dictionary<HandName, int>
     {
         {HandName.RoyalFlush, 28},
@@ -54,10 +52,7 @@ public class Hand
         {HandName.Pair, 20}
     });
 
-    public Hand(List<Card> cards)
-    {
-        _cards = cards;
-    }
+    private List<Card> _cards = new();
 
     public IReadOnlyList<Card> Cards => new ReadOnlyCollection<Card>(_cards);
 
@@ -66,6 +61,8 @@ public class Hand
     public Card HighestCard => GetHighestCard(_cards);
 
     public int Weight => Name == HandName.HighCard ? CardWeight[HighestCard.Value] : _handWeight[Name];
+
+    public void GiveCards(List<Card> cards) => _cards = cards;
 
     private Card GetHighestCard(List<Card> cards) => cards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
 
