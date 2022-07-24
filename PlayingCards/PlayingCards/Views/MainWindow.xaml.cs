@@ -7,10 +7,10 @@ namespace PlayingCards.Views;
 /// </summary>
 public partial class MainWindow
 {
-    public MainWindow(GameDeckViewModel gameDeckViewModel)
+    public MainWindow(GameViewModel gameViewModel)
     {
         InitializeComponent();
 
-        DataContext = gameDeckViewModel;
+        DataContext = gameViewModel;
     }
 }

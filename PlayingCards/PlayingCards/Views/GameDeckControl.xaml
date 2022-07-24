@@ -6,7 +6,7 @@
              xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
              xmlns:views="clr-namespace:PlayingCards.Views"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance viewModels:GameDeckViewModel}"
+             d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <ItemsControl ItemsSource="{Binding Players}">

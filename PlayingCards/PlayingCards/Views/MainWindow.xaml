@@ -6,7 +6,7 @@
         xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
         xmlns:views="clr-namespace:PlayingCards.Views"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance viewModels:GameDeckViewModel}"
+        d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
         Title="MainWindow" Height="605" Width="1005">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,9 +18,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <views:CreatePlayerControl Grid.Row="0" Grid.Column="0" />
+        <views:CreatePlayerControl Grid.Row="0" Grid.Column="0" DataContext="{Binding}" />
         <views:GameDeckControl Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" DataContext="{Binding}"/>
-        <Button Grid.Row="1" Grid.Column="0" Content="Refresh" Command="{Binding RefreshCommand}"/>
+        <Button Grid.Row="1" Grid.Column="0" Content="Refresh" Command="{Binding ShuffleCommand}"/>
         <views:GameOverViewControl Grid.Row="2" Grid.Column="0" DataContext="{Binding}"/>
     </Grid>
 </Window>

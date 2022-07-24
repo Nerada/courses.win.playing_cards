@@ -10,6 +10,7 @@ public class Game
 {
     public enum Outcome
     {
+        None,
         Draw,
         Wins,
         Lost
@@ -66,7 +67,14 @@ public class Game
         return newCards;
     }
 
-    public List<Player> PlayersWithTheHighestHand()
+    public (Outcome outcome, List<Player> players) Result()
+    {
+        List<Player> winningPlayers = PlayersWithTheHighestHand();
+
+        return winningPlayers.Count == 0 ? (Outcome.None, winningPlayers) : winningPlayers.Count == 1 ? (Outcome.Wins, winningPlayers) : (Outcome.Draw, winningPlayers);
+    }
+
+    private List<Player> PlayersWithTheHighestHand()
     {
         List<Player> winningPlayers = new();
 

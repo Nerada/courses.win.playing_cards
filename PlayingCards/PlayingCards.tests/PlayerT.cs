@@ -38,7 +38,7 @@ public class PlayingCardsT
     [InlineData("2H 3D 5S 9C KD", "PlayerA", "2C 3H 4S 8C AH", "PlayerB", "PlayerB", 1)]
     [InlineData("2H 4S 4C 2D 4H", "PlayerA", "2S 8S AS QS 3S", "PlayerB", "PlayerA", 1)]
     [InlineData("2H 3D 5S 9C QD", "PlayerA", "2C 3H 4S 8C KH", "PlayerB", "PlayerB", 1)]
-    [InlineData("2H 3D 5S 9C KD", "PlayerA", "2D 3H 5C 9S KH", "PlayerB", "", 2)]
+    [InlineData("2H 3D 5S 9C KD", "PlayerA", "2D 3H 5C 9S KH", "PlayerB", "",        2)]
     public void HighestHandForPlayer(string cardsPlayerA, string namePlayerA, string cardsPlayerB, string namePlayerB, string nameOfWinningPlayer, int amountOfWinningPlayers)
     {
         Player player1 = new(namePlayerA);
@@ -51,7 +51,7 @@ public class PlayingCardsT
         game.AddPlayer(player1);
         game.AddPlayer(player2);
 
-        game.PlayersWithTheHighestHand().Count.Should().Be(amountOfWinningPlayers);
-        if (amountOfWinningPlayers == 1) game.PlayersWithTheHighestHand()[0].PlayerName.Should().Be(nameOfWinningPlayer);
+        game.Result().players.Count.Should().Be(amountOfWinningPlayers);
+        if (amountOfWinningPlayers == 1) game.Result().players[0].PlayerName.Should().Be(nameOfWinningPlayer);
     }
 }

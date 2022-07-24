@@ -58,13 +58,11 @@ public class Hand
 
     public HandName Name => GetHandName(_cards);
 
-    public Card HighestCard => GetHighestCard(_cards);
+    public Card HighestCard => _cards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
 
     public int Weight => Name == HandName.HighCard ? CardWeight[HighestCard.Value] : _handWeight[Name];
 
     public void GiveCards(List<Card> cards) => _cards = cards;
-
-    private Card GetHighestCard(List<Card> cards) => cards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
 
     private HandName GetHandName(List<Card> cards)
     {
