@@ -20,10 +20,7 @@ public class Game
 
     private readonly List<Player> _players = new();
 
-    public Game()
-    {
-        RefreshDeck(_deckOfCards);
-    }
+    public Game() => RefreshDeck(_deckOfCards);
 
     public IReadOnlyList<Player> Players => new ReadOnlyCollection<Player>(_players);
 
@@ -71,7 +68,8 @@ public class Game
     {
         List<Player> winningPlayers = PlayersWithTheHighestHand();
 
-        return winningPlayers.Count == 0 ? (Outcome.None, winningPlayers) : winningPlayers.Count == 1 ? (Outcome.Wins, winningPlayers) : (Outcome.Draw, winningPlayers);
+        return winningPlayers.Count == 0 ? (Outcome.None, winningPlayers) :
+               winningPlayers.Count == 1 ? (Outcome.Wins, winningPlayers) : (Outcome.Draw, winningPlayers);
     }
 
     private List<Player> PlayersWithTheHighestHand()
