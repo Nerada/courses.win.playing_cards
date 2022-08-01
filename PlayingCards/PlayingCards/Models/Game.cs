@@ -10,7 +10,7 @@ public class Game
 {
     private const int CardsPerPlayer = 2;
     private const int CardsPerGame = 5;
-    private const int ReservedCardsForGame = 15;
+    private const int ReservedCardsForGame = 10;
 
     public enum Outcome
     {

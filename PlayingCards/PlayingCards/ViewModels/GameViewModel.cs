@@ -48,7 +48,13 @@ public class GameViewModel : ViewModelBase
 
     private void AddPlayer(string playerName)
     {
+        // Hard limit for now (it takes up max space)
+        if (_game.Players.Count == 9) return;
+        if (string.IsNullOrWhiteSpace(playerName)) return;
+        if (_game.Players.Any(p => p.PlayerName == playerName)) return;
+
         _game.AddPlayer(new Player(playerName));
+
         AllPropertiesChanged();
     }
 

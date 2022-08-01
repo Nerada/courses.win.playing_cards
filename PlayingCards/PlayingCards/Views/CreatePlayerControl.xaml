@@ -19,6 +19,6 @@
 
         <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
         <TextBox x:Name="PlayerName" Grid.Row="0" Grid.Column="1" VerticalContentAlignment="Center" />
-        <Button Height="25" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddPlayerCommand}" CommandParameter="{Binding ElementName=PlayerName, Path=Text,UpdateSourceTrigger=PropertyChanged}"  Content="Add Player"/>
+        <Button Height="25" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddPlayerCommand}" CommandParameter="{Binding ElementName=PlayerName, Path=Text,UpdateSourceTrigger=PropertyChanged}" Content="Add Player" Click="OnAddPlayer"/>
     </Grid>
 </UserControl>
