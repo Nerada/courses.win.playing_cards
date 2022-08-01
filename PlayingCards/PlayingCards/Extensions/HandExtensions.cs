@@ -38,7 +38,7 @@ public static class HandExtensions
 
     public static bool IsFullHouse(this IReadOnlyList<Card> cards) => IsThreeOfAKind(cards) && IsPair(cards);
 
-    public static bool IsFlush(this IReadOnlyList<Card> cards) => cards.Count != 0 && cards.All(c => c.Suit == cards[0].Suit);
+    public static bool IsFlush(this IReadOnlyList<Card> cards) => cards.Count >= 3 && cards.All(c => c.Suit == cards[0].Suit);
 
     public static bool IsThreeOfAKind(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Any(g => g.Count() == 3);
 

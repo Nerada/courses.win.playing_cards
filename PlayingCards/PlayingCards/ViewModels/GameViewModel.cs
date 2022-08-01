@@ -24,6 +24,8 @@ public class GameViewModel : ViewModelBase
 
     public IReadOnlyList<Player> Players => _game.Players;
 
+    public IReadOnlyList<Card> GameCards => _game.GameCards;
+
     public string Winners
     {
         get
@@ -59,6 +61,7 @@ public class GameViewModel : ViewModelBase
     private void AllPropertiesChanged()
     {
         RaisePropertyChanged(nameof(Players));
+        RaisePropertyChanged(nameof(GameCards));
         RaisePropertyChanged(nameof(Winners));
     }
 }

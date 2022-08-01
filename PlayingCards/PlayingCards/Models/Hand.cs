@@ -52,17 +52,22 @@ public class Hand
         {HandName.Pair, 20}
     });
 
-    private List<Card> _cards = new();
+    private List<Card> _playerCards = new();
+    private List<Card> _gameCards = new();
 
-    public IReadOnlyList<Card> Cards => new ReadOnlyCollection<Card>(_cards);
+    public IReadOnlyList<Card> PlayerCards => new ReadOnlyCollection<Card>(_playerCards);
 
-    public HandName Name => GetHandName(_cards);
+    public IReadOnlyList<Card> Cards => new ReadOnlyCollection<Card>(_gameCards.Concat(_playerCards).ToList());
 
-    public Card HighestCard => _cards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
+    public HandName Name => GetHandName(_gameCards.Concat(_playerCards).ToList());
+
+    public Card HighestCard => _playerCards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
 
     public int Weight => Name == HandName.HighCard ? CardWeight[HighestCard.Value] : _handWeight[Name];
 
-    public void GiveCards(List<Card> cards) => _cards = cards;
+    public void GiveCards(List<Card> cards) => _playerCards = cards;
+
+    public void SetGameCards(List<Card> cards) => _gameCards = cards;
 
     private HandName GetHandName(List<Card> cards)
     {

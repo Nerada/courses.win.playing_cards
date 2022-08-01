@@ -8,6 +8,10 @@ namespace PlayingCards.Models;
 
 public class Game
 {
+    private const int CardsPerPlayer = 2;
+    private const int CardsPerGame = 5;
+    private const int ReservedCardsForGame = 15;
+
     public enum Outcome
     {
         None,
@@ -19,41 +23,54 @@ public class Game
     private readonly List<Card> _deckOfCards = new();
 
     private readonly List<Player> _players = new();
+    private readonly List<Card> _gameCards = new();
 
-    public Game() => RefreshDeck(_deckOfCards);
+    public Game() => RefreshDeck();
 
     public IReadOnlyList<Player> Players => new ReadOnlyCollection<Player>(_players);
 
-    private void RefreshDeck(List<Card> cards)
+    public IReadOnlyList<Card> GameCards => new ReadOnlyCollection<Card>(_gameCards);
+
+    private void RefreshDeck()
     {
-        cards.Clear();
+        _deckOfCards.Clear();
+        _gameCards.Clear();
         Array availableSuits  = Enum.GetValues(typeof(Card.SuitType));
         Array availableValues = Enum.GetValues(typeof(Card.ValueType));
 
         foreach (Card.SuitType suit in availableSuits)
         {
-            foreach (Card.ValueType value in availableValues) { cards.Add(new Card(value, suit)); }
+            foreach (Card.ValueType value in availableValues) { _deckOfCards.Add(new Card(value, suit)); }
         }
     }
 
     public void AddPlayer(Player player)
     {
-        if (player.Hand.Cards.Count == 0) player.GiveCards(RandomCards());
+        if(ReservedCardsForGame + (CardsPerPlayer * (_players.Count + 1)) > _deckOfCards.Count) throw
+            new InvalidOperationException("Not enough cards in a deck");
+
+        if (player.Hand.Cards.Count == 0) player.GiveCards(GetRandomCards(CardsPerPlayer));
         _players.Add(player);
     }
 
     public void ShuffleCards()
     {
-        RefreshDeck(_deckOfCards);
+        RefreshDeck();
 
-        _players.ForEach(p => p.GiveCards(RandomCards()));
+        _gameCards.AddRange(GetRandomCards(CardsPerGame));
+
+        _players.ForEach(p =>
+        {
+            p.GiveCards(GetRandomCards(CardsPerPlayer));
+            p.SetGameCards(_gameCards);
+        });
     }
 
-    private List<Card> RandomCards()
+    private List<Card> GetRandomCards(int amount)
     {
         List<Card> newCards = new();
 
-        while (newCards.Count != 5)
+        while (newCards.Count != amount)
         {
             int cardIndex = RandomNumberGenerator.GetInt32(_deckOfCards.Count - 1);
 

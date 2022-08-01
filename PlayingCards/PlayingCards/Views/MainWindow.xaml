@@ -7,20 +7,29 @@
         xmlns:views="clr-namespace:PlayingCards.Views"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
-        Title="MainWindow" Height="605" Width="1005">
+        Title="MainWindow" Height="605" Width="1275">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <views:CreatePlayerControl Grid.Row="0" Grid.Column="0" DataContext="{Binding}" />
-        <views:GameDeckControl Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" DataContext="{Binding}"/>
-        <Button Grid.Row="1" Grid.Column="0" Content="Refresh" Command="{Binding ShuffleCommand}"/>
-        <views:GameOverViewControl Grid.Row="2" Grid.Column="0" DataContext="{Binding}"/>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <views:CreatePlayerControl Grid.Row="0" DataContext="{Binding}" />
+            <Button Grid.Row="1" Content="Refresh" Command="{Binding ShuffleCommand}"/>
+            <views:GameOverViewControl Grid.Row="2" DataContext="{Binding}"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <views:GameDeckControl Grid.Row="0" DataContext="{Binding}"/>
+            <views:PlayersDeckControl Grid.Row="1" DataContext="{Binding}"/>
+        </Grid>
     </Grid>
 </Window>

@@ -30,5 +30,7 @@ public class Player
         GiveCards(cards);
     }
 
+    public void SetGameCards(List<Card> gameCards) => Hand.SetGameCards(gameCards);
+
     public void GiveCards(List<Card> newCards) => Hand.GiveCards(newCards);
 }
