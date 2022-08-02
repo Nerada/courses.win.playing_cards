@@ -15,14 +15,7 @@ namespace PlayingCards.Extensions;
 
 public static class Extensions
 {
-    public static Card.SuitType ToSuit(this char suitChar) => suitChar switch
-    {
-        'C' => Card.SuitType.Clubs,
-        'D' => Card.SuitType.Diamonds,
-        'H' => Card.SuitType.Hearts,
-        'S' => Card.SuitType.Spades,
-        _   => throw new SwitchExpressionException()
-    };
+    public static Brush ToSuitColor(this Card.SuitType suit) => suit is Card.SuitType.Hearts or Card.SuitType.Diamonds ? new SolidColorBrush(Colors.OrangeRed) : new SolidColorBrush(Colors.DimGray);
 
     public static char ToSuitChar(this Card.SuitType suitType) => suitType switch
     {
@@ -33,23 +26,11 @@ public static class Extensions
         _                      => throw new SwitchExpressionException()
     };
 
-    public static Card.ValueType ToValue(this string valueString) => valueString switch
-    {
-        "A"  => Card.ValueType.Ace,
-        "K"  => Card.ValueType.King,
-        "Q"  => Card.ValueType.Queen,
-        "J"  => Card.ValueType.Jack,
-        "10" => Card.ValueType.Ten,
-        "9"  => Card.ValueType.Nine,
-        "8"  => Card.ValueType.Eight,
-        "7"  => Card.ValueType.Seven,
-        "6"  => Card.ValueType.Six,
-        "5"  => Card.ValueType.Five,
-        "4"  => Card.ValueType.Four,
-        "3"  => Card.ValueType.Three,
-        "2"  => Card.ValueType.Two,
-        _    => throw new SwitchExpressionException()
-    };
+    public static Game.Outcome Play(this Card thisCard, Card otherCard) => Hand.CardWeight[thisCard.Value] == Hand.CardWeight[otherCard.Value] ? Game.Outcome.Draw :
+        Hand.CardWeight[thisCard.Value] > Hand.CardWeight[otherCard.Value] ? Game.Outcome.Wins : Game.Outcome.Lost;
+
+    public static Game.Outcome Play(this Hand thisHand, Hand otherHand) => thisHand.Weight == otherHand.Weight ? thisHand.HasHighestHandWhenSame(otherHand) :
+        thisHand.Weight > otherHand.Weight ? Game.Outcome.Wins : Game.Outcome.Lost;
 
     public static string ToValueString(this Card.ValueType value) => value switch
     {
@@ -69,13 +50,32 @@ public static class Extensions
         _                    => throw new SwitchExpressionException()
     };
 
-    public static Brush ToSuitColor(this Card.SuitType suit) => suit is Card.SuitType.Hearts or Card.SuitType.Diamonds ? new SolidColorBrush(Colors.OrangeRed) : new SolidColorBrush(Colors.DimGray);
+    public static Card.SuitType ToSuit(this char suitChar) => suitChar switch
+    {
+        'C' => Card.SuitType.Clubs,
+        'D' => Card.SuitType.Diamonds,
+        'H' => Card.SuitType.Hearts,
+        'S' => Card.SuitType.Spades,
+        _   => throw new SwitchExpressionException()
+    };
 
-    public static Game.Outcome Play(this Card thisCard, Card otherCard) => Hand.CardWeight[thisCard.Value] == Hand.CardWeight[otherCard.Value] ? Game.Outcome.Draw :
-                                                                           Hand.CardWeight[thisCard.Value] > Hand.CardWeight[otherCard.Value] ? Game.Outcome.Wins : Game.Outcome.Lost;
-
-    public static Game.Outcome Play(this Hand thisHand, Hand otherHand) => thisHand.Weight == otherHand.Weight ? thisHand.HasHighestHandWhenSame(otherHand) :
-                                                                           thisHand.Weight > otherHand.Weight ? Game.Outcome.Wins : Game.Outcome.Lost;
+    public static Card.ValueType ToValue(this string valueString) => valueString switch
+    {
+        "A"  => Card.ValueType.Ace,
+        "K"  => Card.ValueType.King,
+        "Q"  => Card.ValueType.Queen,
+        "J"  => Card.ValueType.Jack,
+        "10" => Card.ValueType.Ten,
+        "9"  => Card.ValueType.Nine,
+        "8"  => Card.ValueType.Eight,
+        "7"  => Card.ValueType.Seven,
+        "6"  => Card.ValueType.Six,
+        "5"  => Card.ValueType.Five,
+        "4"  => Card.ValueType.Four,
+        "3"  => Card.ValueType.Three,
+        "2"  => Card.ValueType.Two,
+        _    => throw new SwitchExpressionException()
+    };
 
     /// <summary>
     ///     Get cards relevant to hand and check which one is highest

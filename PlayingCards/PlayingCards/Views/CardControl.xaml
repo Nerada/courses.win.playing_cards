@@ -1,66 +1,68 @@
 ﻿<UserControl x:Class="PlayingCards.Views.CardControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Width="125" Height="175" BorderThickness="1" BorderBrush="LightGray" CornerRadius="10" Background="White">
         <Grid Background="Transparent">
             <Grid.Resources>
-                <FontFamily x:Key="Font" >/Resources/Fonts/#Marathon</FontFamily>
+                <FontFamily x:Key="Font">/Resources/Fonts/#Marathon</FontFamily>
                 <Style x:Key="BaseTextStyle" TargetType="{x:Type Label}">
                     <Setter Property="FontFamily" Value="{StaticResource Font}" />
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
                 <Style x:Key="CardValueTextStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseTextStyle}">
-                    <Setter Property="FontSize" Value="36"/>
-                    <Setter Property="Margin" Value="0,-3,0,0"/>
+                    <Setter Property="FontSize" Value="36" />
+                    <Setter Property="Margin" Value="0,-3,0,0" />
                 </Style>
                 <Style x:Key="CardSuitTextStyle" TargetType="{x:Type Label}" BasedOn="{StaticResource BaseTextStyle}">
-                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="FontSize" Value="18" />
                 </Style>
                 <Style x:Key="StackPanelBase" TargetType="{x:Type StackPanel}">
-                    <Setter Property="Width" Value="30"/>
-                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Width" Value="30" />
+                    <Setter Property="Height" Value="50" />
                 </Style>
-                <Style x:Key="UpsideDownStackPanel" TargetType="{x:Type StackPanel}" BasedOn="{StaticResource StackPanelBase}">
+                <Style x:Key="UpsideDownStackPanel" TargetType="{x:Type StackPanel}"
+                       BasedOn="{StaticResource StackPanelBase}">
                     <Setter Property="LayoutTransform">
                         <Setter.Value>
-                            <RotateTransform Angle="180"/>
+                            <RotateTransform Angle="180" />
                         </Setter.Value>
                     </Setter>
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Grid.Column="0" Style="{StaticResource StackPanelBase}">
                 <Label x:Name="ValueTopLeft" d:Content="A" Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitTopLeft" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="2" Style="{StaticResource StackPanelBase}" Visibility="Hidden">
-                <Label x:Name="ValueTopRight" d:Content="A"  Style="{StaticResource CardValueTextStyle}" />
+                <Label x:Name="ValueTopRight" d:Content="A" Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitTopRight" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource UpsideDownStackPanel}">
-                <Label x:Name="ValueBottomRight" d:Content="10"  Style="{StaticResource CardValueTextStyle}" />
+                <Label x:Name="ValueBottomRight" d:Content="10" Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitBottomRight" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
             <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource UpsideDownStackPanel}" Visibility="Hidden">
-                <Label x:Name="ValueBottomLeft" d:Content="A"  Style="{StaticResource CardValueTextStyle}"/>
+                <Label x:Name="ValueBottomLeft" d:Content="A" Style="{StaticResource CardValueTextStyle}" />
                 <Label x:Name="SuitBottomLeft" d:Content="♠" Style="{StaticResource CardSuitTextStyle}" />
             </StackPanel>
 
-            <Grid x:Name="ImageGrid" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Grid x:Name="ImageGrid" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch" />
         </Grid>
     </Border>
 </UserControl>

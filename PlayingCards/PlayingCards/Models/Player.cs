@@ -10,9 +10,9 @@ public class Player
         PlayerName = playerName;
     }
 
-    public string PlayerName { get; }
-
     public Hand Hand { get; } = new();
+
+    public string PlayerName { get; }
 
     public void GiveCards(string cardsString)
     {

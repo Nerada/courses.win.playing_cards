@@ -39,6 +39,7 @@ public class Card
         Suit  = suit;
     }
 
+    public SuitType Suit { get; }
+
     public ValueType Value { get; }
-    public SuitType  Suit  { get; }
 }

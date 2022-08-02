@@ -47,15 +47,15 @@ public static class HandExtensions
     public static bool IsPair(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Count(g => g.Count() == 2) == 1;
 
     public static IReadOnlyList<Card> GetRoyalFlushCards(this IReadOnlyList<Card> cards) => cards.IsRoyalFlush()
-                                                                                                ? new List<Card>
-                                                                                                {
-                                                                                                    cards.First(c => c.Value == Card.ValueType.Ace),
-                                                                                                    cards.First(c => c.Value == Card.ValueType.King),
-                                                                                                    cards.First(c => c.Value == Card.ValueType.Queen),
-                                                                                                    cards.First(c => c.Value == Card.ValueType.Jack),
-                                                                                                    cards.First(c => c.Value == Card.ValueType.Ten)
-                                                                                                }
-                                                                                                : throw new InvalidOperationException();
+        ? new List<Card>
+        {
+            cards.First(c => c.Value == Card.ValueType.Ace),
+            cards.First(c => c.Value == Card.ValueType.King),
+            cards.First(c => c.Value == Card.ValueType.Queen),
+            cards.First(c => c.Value == Card.ValueType.Jack),
+            cards.First(c => c.Value == Card.ValueType.Ten)
+        }
+        : throw new InvalidOperationException();
 
     public static IReadOnlyList<Card> GetStraightFlushCards(this IReadOnlyList<Card> cards) =>
         cards.IsStraightFlush() ? cards.GetFlushCards().GetStraightCards() : throw new InvalidOperationException();

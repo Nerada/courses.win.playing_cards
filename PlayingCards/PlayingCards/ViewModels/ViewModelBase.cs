@@ -30,12 +30,6 @@ public class ViewModelBase : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, GetCachedPropertyChangedEventArgs(propertyName));
     }
 
-    private void SetAndRaisePropertyChanged<T>(out T field, T newValue, string? propertyName)
-    {
-        field = newValue;
-        RaisePropertyChanged(propertyName);
-    }
-
     private PropertyChangedEventArgs GetCachedPropertyChangedEventArgs(string propertyName)
     {
         if (!CachedPropertyChangedEventArgs.TryGetValue(propertyName, out PropertyChangedEventArgs? args))
@@ -45,5 +39,11 @@ public class ViewModelBase : INotifyPropertyChanged
         }
 
         return args;
+    }
+
+    private void SetAndRaisePropertyChanged<T>(out T field, T newValue, string? propertyName)
+    {
+        field = newValue;
+        RaisePropertyChanged(propertyName);
     }
 }

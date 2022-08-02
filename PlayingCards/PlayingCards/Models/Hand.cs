@@ -8,20 +8,6 @@ namespace PlayingCards.Models;
 
 public class Hand
 {
-    public enum HandName
-    {
-        RoyalFlush,
-        StraightFlush,
-        FourOfAKind,
-        FullHouse,
-        Flush,
-        Straight,
-        ThreeOfAKind,
-        TwoPair,
-        Pair,
-        HighCard
-    }
-
     public static readonly ReadOnlyDictionary<Card.ValueType, int> CardWeight = new(new Dictionary<Card.ValueType, int>
     {
         {Card.ValueType.Ace, 13},
@@ -39,6 +25,20 @@ public class Hand
         {Card.ValueType.Two, 1}
     });
 
+    public enum HandName
+    {
+        RoyalFlush,
+        StraightFlush,
+        FourOfAKind,
+        FullHouse,
+        Flush,
+        Straight,
+        ThreeOfAKind,
+        TwoPair,
+        Pair,
+        HighCard
+    }
+
     private readonly ReadOnlyDictionary<HandName, int> _handWeight = new(new Dictionary<HandName, int>
     {
         {HandName.RoyalFlush, 28},
@@ -52,18 +52,18 @@ public class Hand
         {HandName.Pair, 20}
     });
 
-    private List<Card> _playerCards = new();
     private List<Card> _gameCards = new();
+
+    private List<Card> _playerCards = new();
+    public  Card       HighestCard => _playerCards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
+
+    public HandName Name => GetHandName(_gameCards.Concat(_playerCards).ToList());
+
+    public int Weight => Name == HandName.HighCard ? CardWeight[HighestCard.Value] : _handWeight[Name];
 
     public IReadOnlyList<Card> PlayerCards => new ReadOnlyCollection<Card>(_playerCards);
 
     public IReadOnlyList<Card> Cards => new ReadOnlyCollection<Card>(_gameCards.Concat(_playerCards).ToList());
-
-    public HandName Name => GetHandName(_gameCards.Concat(_playerCards).ToList());
-
-    public Card HighestCard => _playerCards.MaxBy(c => CardWeight[c.Value]) ?? throw new InvalidOperationException();
-
-    public int Weight => Name == HandName.HighCard ? CardWeight[HighestCard.Value] : _handWeight[Name];
 
     public void GiveCards(List<Card> cards) => _playerCards = cards;
 

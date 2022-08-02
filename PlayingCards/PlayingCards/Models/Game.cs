@@ -8,8 +8,9 @@ namespace PlayingCards.Models;
 
 public class Game
 {
-    private const int CardsPerPlayer = 2;
     private const int CardsPerGame = 5;
+
+    private const int CardsPerPlayer       = 2;
     private const int ReservedCardsForGame = 10;
 
     public enum Outcome
@@ -21,33 +22,62 @@ public class Game
     }
 
     private readonly List<Card> _deckOfCards = new();
+    private readonly List<Card> _gameCards   = new();
 
     private readonly List<Player> _players = new();
-    private readonly List<Card> _gameCards = new();
 
-    public Game() => RefreshDeck();
-
-    public IReadOnlyList<Player> Players => new ReadOnlyCollection<Player>(_players);
+    public Game()
+    {
+        RefreshDeck();
+    }
 
     public IReadOnlyList<Card> GameCards => new ReadOnlyCollection<Card>(_gameCards);
 
-    private void RefreshDeck()
-    {
-        _deckOfCards.Clear();
-        _gameCards.Clear();
-        Array availableSuits  = Enum.GetValues(typeof(Card.SuitType));
-        Array availableValues = Enum.GetValues(typeof(Card.ValueType));
+    public IReadOnlyList<Player> Players => new ReadOnlyCollection<Player>(_players);
 
-        foreach (Card.SuitType suit in availableSuits)
+    public (Outcome outcome, List<Player> players) Result()
+    {
+        List<Player> winningPlayers = PlayersWithTheHighestHand();
+
+        return winningPlayers.Count == 0 ? (Outcome.None, winningPlayers) :
+            winningPlayers.Count    == 1 ? (Outcome.Wins, winningPlayers) : (Outcome.Draw, winningPlayers);
+    }
+
+    public List<Player> PlayersWithHighestCard()
+    {
+        List<Player> winningPlayers = new();
+
+        foreach (Player player in _players)
         {
-            foreach (Card.ValueType value in availableValues) { _deckOfCards.Add(new Card(value, suit)); }
+            Card highestPlayerCard = player.Hand.HighestCard;
+
+            if (winningPlayers.Count == 0)
+            {
+                winningPlayers.Add(player);
+
+                continue;
+            }
+
+            if (highestPlayerCard.Play(winningPlayers[0].Hand.HighestCard) == Outcome.Draw)
+            {
+                winningPlayers.Add(player);
+
+                continue;
+            }
+
+            if (highestPlayerCard.Play(winningPlayers[0].Hand.HighestCard) == Outcome.Wins)
+            {
+                winningPlayers.Clear();
+                winningPlayers.Add(player);
+            }
         }
+
+        return winningPlayers;
     }
 
     public void AddPlayer(Player player)
     {
-        if(ReservedCardsForGame + (CardsPerPlayer * (_players.Count + 1)) > _deckOfCards.Count) throw
-            new InvalidOperationException("Not enough cards in a deck");
+        if (ReservedCardsForGame + CardsPerPlayer * (_players.Count + 1) > _deckOfCards.Count) throw new InvalidOperationException("Not enough cards in a deck");
 
         if (player.Hand.Cards.Count == 0) player.GiveCards(GetRandomCards(CardsPerPlayer));
         _players.Add(player);
@@ -81,14 +111,6 @@ public class Game
         return newCards;
     }
 
-    public (Outcome outcome, List<Player> players) Result()
-    {
-        List<Player> winningPlayers = PlayersWithTheHighestHand();
-
-        return winningPlayers.Count == 0 ? (Outcome.None, winningPlayers) :
-               winningPlayers.Count == 1 ? (Outcome.Wins, winningPlayers) : (Outcome.Draw, winningPlayers);
-    }
-
     private List<Player> PlayersWithTheHighestHand()
     {
         List<Player> winningPlayers = new();
@@ -119,35 +141,16 @@ public class Game
         return winningPlayers;
     }
 
-    public List<Player> PlayersWithHighestCard()
+    private void RefreshDeck()
     {
-        List<Player> winningPlayers = new();
+        _deckOfCards.Clear();
+        _gameCards.Clear();
+        Array availableSuits  = Enum.GetValues(typeof(Card.SuitType));
+        Array availableValues = Enum.GetValues(typeof(Card.ValueType));
 
-        foreach (Player player in _players)
+        foreach (Card.SuitType suit in availableSuits)
         {
-            Card highestPlayerCard = player.Hand.HighestCard;
-
-            if (winningPlayers.Count == 0)
-            {
-                winningPlayers.Add(player);
-
-                continue;
-            }
-
-            if (highestPlayerCard.Play(winningPlayers[0].Hand.HighestCard) == Outcome.Draw)
-            {
-                winningPlayers.Add(player);
-
-                continue;
-            }
-
-            if (highestPlayerCard.Play(winningPlayers[0].Hand.HighestCard) == Outcome.Wins)
-            {
-                winningPlayers.Clear();
-                winningPlayers.Add(player);
-            }
+            foreach (Card.ValueType value in availableValues) { _deckOfCards.Add(new Card(value, suit)); }
         }
-
-        return winningPlayers;
     }
 }

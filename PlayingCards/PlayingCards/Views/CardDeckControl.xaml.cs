@@ -6,17 +6,17 @@ namespace PlayingCards.Views;
 
 public partial class CardDeckControl
 {
-    public static readonly DependencyProperty CardsProperty = DependencyProperty.Register(
-        "Cards", typeof(IReadOnlyList<Card>), typeof(CardDeckControl), new PropertyMetadata(default(IReadOnlyList<Card>)));
+    public static readonly DependencyProperty CardsProperty = DependencyProperty.Register("Cards", typeof(IReadOnlyList<Card>), typeof(CardDeckControl),
+                                                                                          new PropertyMetadata(default(IReadOnlyList<Card>)));
+
+    public CardDeckControl()
+    {
+        InitializeComponent();
+    }
 
     public IReadOnlyList<Card> Cards
     {
         get => (IReadOnlyList<Card>)GetValue(CardsProperty);
         set => SetValue(CardsProperty, value);
-    }
-
-    public CardDeckControl()
-    {
-        InitializeComponent();
     }
 }

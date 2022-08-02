@@ -22,9 +22,9 @@ public class GameViewModel : ViewModelBase
 
     public ICommand AddPlayerCommand { get; }
 
-    public IReadOnlyList<Player> Players => _game.Players;
-
     public IReadOnlyList<Card> GameCards => _game.GameCards;
+
+    public IReadOnlyList<Player> Players => _game.Players;
 
     public string Winners
     {
