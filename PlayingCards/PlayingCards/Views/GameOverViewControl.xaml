@@ -8,6 +8,12 @@
              d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="{Binding Winners}" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" x:Name="ErrorOutput" Content="{Binding Error}" Foreground="DarkSlateGray" FontSize="15" />
+        <Label Grid.Column="2" Content="{Binding Winners}" Foreground="White" FontSize="15" />
     </Grid>
 </UserControl>

@@ -11,6 +11,8 @@ public class GameViewModel : ViewModelBase
 {
     private readonly Game _game;
 
+    private string _error = string.Empty;
+
     public GameViewModel(Game game)
     {
         _game            = game;
@@ -46,12 +48,30 @@ public class GameViewModel : ViewModelBase
         }
     }
 
+    public string Error
+    {
+        get => _error;
+        private set => Set(ref _error, value);
+    }
+
+    public void ClearError() => Error = string.Empty;
+
     private void AddPlayer(string playerName)
     {
-        // Hard limit for now (it takes up max space)
-        if (_game.Players.Count == 9) return;
         if (string.IsNullOrWhiteSpace(playerName)) return;
-        if (_game.Players.Any(p => p.PlayerName == playerName)) return;
+
+        // Hard limit for now (it takes up max space)
+        if (_game.Players.Count == 9)
+        {
+            Error = "Maximum players reached.";
+            return;
+        }
+
+        if (_game.Players.Any(p => p.PlayerName == playerName))
+        {
+            Error = "Player already exists.";
+            return;
+        }
 
         _game.AddPlayer(new Player(playerName));
 
