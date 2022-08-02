@@ -102,7 +102,7 @@ public class Game
 
         while (newCards.Count != amount)
         {
-            int cardIndex = RandomNumberGenerator.GetInt32(_deckOfCards.Count - 1);
+            int cardIndex = RandomNumberGenerator.GetInt32(_deckOfCards.Count);
 
             newCards.Add(_deckOfCards[cardIndex]);
             _deckOfCards.RemoveAt(cardIndex);
