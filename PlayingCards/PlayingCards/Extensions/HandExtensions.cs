@@ -20,25 +20,15 @@ public static class HandExtensions
         return true;
     }
 
-    public static bool IsStraightFlush(this IReadOnlyList<Card> cards) => IsFlush(cards) && IsStraight(cards);
+    public static bool IsStraightFlush(this IReadOnlyList<Card> cards) => cards.GetFlushCards().IsStraight();
 
     public static bool IsFourOfAKind(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Any(g => g.Count() == 4);
 
-    public static bool IsStraight(this IReadOnlyList<Card> cards)
-    {
-        int highestCardWeight = cards.Max(c => Hand.CardWeight[c.Value]);
-
-        for (int i = 0; i < 5; i++)
-        {
-            if (cards.All(c => Hand.CardWeight[c.Value] != highestCardWeight - i)) return false;
-        }
-
-        return true;
-    }
+    public static bool IsStraight(this IReadOnlyList<Card> cards) => cards.GetStraightCards().Count == 5;
 
     public static bool IsFullHouse(this IReadOnlyList<Card> cards) => IsThreeOfAKind(cards) && IsPair(cards);
 
-    public static bool IsFlush(this IReadOnlyList<Card> cards) => cards.Count >= 3 && cards.All(c => c.Suit == cards[0].Suit);
+    public static bool IsFlush(this IReadOnlyList<Card> cards) => cards.GetFlushCards().Count >= 5;
 
     public static bool IsThreeOfAKind(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Any(g => g.Count() == 3);
 
@@ -65,21 +55,38 @@ public static class HandExtensions
 
     public static IReadOnlyList<Card> GetStraightCards(this IReadOnlyList<Card> cards)
     {
-        if (!cards.IsStraight()) throw new InvalidOperationException();
+        List<Card> orderedCardList = cards.DistinctBy(d => d.Value).OrderBy(c => c.Value).ToList();
 
-        int highestCardWeight = cards.Max(c => Hand.CardWeight[c.Value]);
+        if (orderedCardList.Count < 5) return new List<Card>();
 
-        List<Card> straightCards = new();
+        List<Card> consecutiveCards = new();
 
-        for (int i = 0; i < 5; i++) { straightCards.Add(cards.First(c => Hand.CardWeight[c.Value] == highestCardWeight - i)); }
+        for (int cardIndex = 0; cardIndex < orderedCardList.Count - 4; cardIndex++)
+        {
+            consecutiveCards.Add(orderedCardList[cardIndex]);
+            for (int currentIndex = cardIndex; currentIndex < cardIndex + 5; currentIndex++)
+            {
+                if (Hand.CardWeight[orderedCardList[currentIndex].Value] - 1 == Hand.CardWeight[orderedCardList[currentIndex + 1].Value])
+                {
+                    consecutiveCards.Add(orderedCardList[currentIndex + 1]);
 
-        return straightCards;
+                    if (consecutiveCards.Count == 5) return consecutiveCards;
+                }
+                else
+                {
+                    consecutiveCards.Clear();
+                    break;
+                }
+            }
+        }
+
+        return new List<Card>();
     }
 
     public static IReadOnlyList<Card> GetFullHouseCards(this IReadOnlyList<Card> cards) =>
         cards.IsFullHouse() ? cards.GetThreeOfAKindCards().Concat(cards.GetPairCards()).ToList() : throw new InvalidOperationException();
 
-    public static IReadOnlyList<Card> GetFlushCards(this IReadOnlyList<Card> cards) => cards.IsFlush() ? cards.Where(c => c.Suit == cards[0].Suit).ToList() : throw new InvalidOperationException();
+    public static IReadOnlyList<Card> GetFlushCards(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Suit == cards[0].Suit).OrderByDescending(g => g.Count()).First().ToList();
 
     public static IReadOnlyList<Card> GetThreeOfAKindCards(this IReadOnlyList<Card> cards) =>
         cards.IsThreeOfAKind() ? cards.GroupBy(c => c.Value).Where(g => g.Count() == 3).SelectMany(g => g).ToList() : throw new InvalidOperationException();
