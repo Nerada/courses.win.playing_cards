@@ -98,15 +98,15 @@ public class GameT
     }
 
     [Theory]
-    [InlineData("10H AH",  "QH KH JH",  Hand.HandName.RoyalFlush)]
-    [InlineData("8S 4S",   "6S 7S 5S",  Hand.HandName.StraightFlush)]
-    [InlineData("5C 5S",   "5H 5D 10S", Hand.HandName.FourOfAKind)]
-    [InlineData("10H 10D", "10S 9S 9H", Hand.HandName.FullHouse)]
-    [InlineData("4H 6H",   "10H JH QH", Hand.HandName.Flush)]
-    [InlineData("5D 8D",   "9C 6H 7S",  Hand.HandName.Straight)]
-    [InlineData("5D 5S",   "3C 5H 9D",  Hand.HandName.ThreeOfAKind)]
-    [InlineData("AH 5D",   "AD 8C 5C",  Hand.HandName.TwoPair)]
-    [InlineData("3C 5H",   "9D 5D 2S",  Hand.HandName.Pair)]
+    [InlineData("10H AH",  "2S QH KH JH AS",  Hand.HandName.RoyalFlush)]
+    [InlineData("8S 4S",   "QH 6S 7S 5S KH",  Hand.HandName.StraightFlush)]
+    [InlineData("5C 5S",   "AS 5H 5D 10S 2S", Hand.HandName.FourOfAKind)]
+    [InlineData("10H 10D", "2S 10S 9S 9H 2C", Hand.HandName.FullHouse)]
+    [InlineData("4H 6H",   "2S 10H JH QH 2C", Hand.HandName.Flush)]
+    [InlineData("5D 8D",   "2S 9C 6H 7S 2C",  Hand.HandName.Straight)]
+    [InlineData("5D 5S",   "2S 3C 5H 9D QC",  Hand.HandName.ThreeOfAKind)]
+    [InlineData("KH 2S",   "AC 5D 10S KC 2H", Hand.HandName.TwoPair)]
+    [InlineData("3C 5H",   "QD 9D 5D 2S AS",  Hand.HandName.Pair)]
     public void CheckHands(string playerCards, string gameCards, Hand.HandName expectedHand)
     {
         Player testPlayer = new(string.Empty);
