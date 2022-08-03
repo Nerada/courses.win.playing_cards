@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using PlayingCards.Models;
@@ -32,19 +31,19 @@ public class GameViewModel : ViewModelBase
     {
         get
         {
-            (Game.Outcome outcome, List<Player> players) result = _game.Result();
+            IReadOnlyList<(Player player, Outcome result)> gameResult = _game.Result();
 
-            switch (result.outcome)
+            switch (gameResult.Count)
             {
-                case Game.Outcome.None:
+                case 0:
                     return "No winner yet.";
-                case Game.Outcome.Wins:
-                    return $"{result.players[0].PlayerName} has won the game!";
-                case Game.Outcome.Draw:
-                    return $"The game ended in a draw between:{Environment.NewLine}{string.Join(" & ", result.players.Select(w => w.PlayerName).ToList())}";
+                case 1:
+                    return $"{gameResult[0].player.PlayerName} has won the game!";
+                default:
+                    return gameResult.Any(r => r.result.HighestHand == Outcome.Result.Wins)
+                        ? $"{gameResult.Single(p => p.result.HighestHand == Outcome.Result.Wins).player.PlayerName} has won the game with the highest hand."
+                        : $"The game ended in a draw between: {string.Join(" & ", gameResult.Select(w => w.player.PlayerName).ToList())}.";
             }
-
-            return string.Empty;
         }
     }
 

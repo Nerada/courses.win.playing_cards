@@ -7,10 +7,7 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Width="200">
-        <Grid.Resources>
-            <FontFamily x:Key="Font">/Resources/Fonts/#Marathon</FontFamily>
-        </Grid.Resources>
+    <Grid Width="200" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -20,13 +17,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" VerticalAlignment="Center" Margin="0,0,0,2" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" />
         <TextBox x:Name="PlayerName" Grid.Row="0" Grid.Column="1"
                  VerticalContentAlignment="Center" Foreground="Gray" GotFocus="OnPlayerNameFocus"
-                 LostFocus="OnPlayerNameLostFocus" Height="30" Margin="0,0,6,2" />
-        <Button Height="40" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddPlayerCommand}"
+                 LostFocus="OnPlayerNameLostFocus" />
+        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddPlayerCommand}"
                 CommandParameter="{Binding ElementName=PlayerName, Path=Text,UpdateSourceTrigger=PropertyChanged}"
-                Content="Add Player" BorderThickness="0" Background="DarkSeaGreen" Foreground="White" FontSize="30"
-                FontFamily="{StaticResource Font}" />
+                Content="Add Player" />
     </Grid>
 </UserControl>

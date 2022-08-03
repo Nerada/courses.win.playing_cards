@@ -13,13 +13,6 @@ public class Game
     private const int CardsPerPlayer       = 2;
     private const int ReservedCardsForGame = 10;
 
-    public enum Outcome
-    {
-        None,
-        Draw,
-        Wins,
-        Lost
-    }
 
     private readonly List<Card> _deckOfCards = new();
     private readonly List<Card> _gameCards   = new();
@@ -35,45 +28,7 @@ public class Game
 
     public IReadOnlyList<Player> Players => new ReadOnlyCollection<Player>(_players);
 
-    public (Outcome outcome, List<Player> players) Result()
-    {
-        List<Player> winningPlayers = PlayersWithTheHighestHand();
-
-        return winningPlayers.Count == 0 ? (Outcome.None, winningPlayers) :
-            winningPlayers.Count    == 1 ? (Outcome.Wins, winningPlayers) : (Outcome.Draw, winningPlayers);
-    }
-
-    public List<Player> PlayersWithHighestCard()
-    {
-        List<Player> winningPlayers = new();
-
-        foreach (Player player in _players)
-        {
-            Card highestPlayerCard = player.Hand.HighestCard;
-
-            if (winningPlayers.Count == 0)
-            {
-                winningPlayers.Add(player);
-
-                continue;
-            }
-
-            if (highestPlayerCard.Play(winningPlayers[0].Hand.HighestCard) == Outcome.Draw)
-            {
-                winningPlayers.Add(player);
-
-                continue;
-            }
-
-            if (highestPlayerCard.Play(winningPlayers[0].Hand.HighestCard) == Outcome.Wins)
-            {
-                winningPlayers.Clear();
-                winningPlayers.Add(player);
-            }
-        }
-
-        return winningPlayers;
-    }
+    public IReadOnlyList<(Player player, Outcome result)> Result() => PlayersWithTheHighestHand();
 
     public void AddPlayer(Player player)
     {
@@ -81,6 +36,14 @@ public class Game
 
         if (player.Hand.Cards.Count == 0) player.GiveCards(GetRandomCards(CardsPerPlayer));
         _players.Add(player);
+    }
+
+    public void GiveCards(string cardsString)
+    {
+        _gameCards.Clear();
+        _gameCards.AddRange(cardsString.ToCards());
+
+        _players.ForEach(p => p.SetGameCards(_gameCards));
     }
 
     public void ShuffleCards()
@@ -111,30 +74,42 @@ public class Game
         return newCards;
     }
 
-    private List<Player> PlayersWithTheHighestHand()
+    private List<(Player player, Outcome result)> PlayersWithTheHighestHand()
     {
-        List<Player> winningPlayers = new();
+        List<(Player player, Outcome result)> winningPlayers = new();
 
         foreach (Player player in _players)
         {
             if (winningPlayers.Count == 0)
             {
-                winningPlayers.Add(player);
+                winningPlayers.Add((player, new Outcome(Outcome.Result.Wins, Outcome.Result.Wins)));
 
                 continue;
             }
 
-            if (player.Hand.Play(winningPlayers[0].Hand) == Outcome.Draw)
-            {
-                winningPlayers.Add(player);
+            Outcome playOutcome = player.Hand.Play(winningPlayers[0].player.Hand);
 
-                continue;
-            }
-
-            if (player.Hand.Play(winningPlayers[0].Hand) == Outcome.Wins)
+            switch (playOutcome.Hand)
             {
-                winningPlayers.Clear();
-                winningPlayers.Add(player);
+                case Outcome.Result.Draw:
+                    winningPlayers[0].result.UpdateHand(Outcome.Result.Draw);
+
+                    if (playOutcome.HighestHand != Outcome.Result.Lost)
+                    {
+                        winningPlayers[0].result.UpdateHighestHand(playOutcome.HighestHand == Outcome.Result.Wins ? Outcome.Result.Lost : Outcome.Result.Draw);
+                        winningPlayers.Insert(0, (player, playOutcome));
+                    }
+                    else
+                    {
+                        winningPlayers[0].result.UpdateHighestHand(Outcome.Result.Wins);
+                        winningPlayers.Add((player, playOutcome));
+                    }
+
+                    continue;
+                case Outcome.Result.Wins:
+                    winningPlayers.Clear();
+                    winningPlayers.Add((player, playOutcome));
+                    break;
             }
         }
 

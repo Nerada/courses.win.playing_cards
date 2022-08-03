@@ -1,4 +1,3 @@
-using FluentAssertions;
 using PlayingCards.Models;
 
 namespace PlayingCards.tests;
@@ -14,24 +13,6 @@ public class PlayingCardsT
 
         player.Hand.HighestCard.Value.Should().Be(Card.ValueType.King);
         player.Hand.HighestCard.Suit.Should().Be(Card.SuitType.Diamonds);
-    }
-
-    [Theory]
-    [InlineData("2H 3D 5S 9C QD", "PlayerA", "2C 3H 4S 8C KH", "PlayerB", "PlayerB")]
-    public void HighestCardForPlayer(string cardsPlayerA, string namePlayerA, string cardsPlayerB, string namePlayerB, string result)
-    {
-        Player player1 = new(namePlayerA);
-        Player player2 = new(namePlayerB);
-
-        player1.GiveCards(cardsPlayerA);
-        player2.GiveCards(cardsPlayerB);
-
-        Game game = new();
-        game.AddPlayer(player1);
-        game.AddPlayer(player2);
-
-        game.PlayersWithHighestCard().Count.Should().Be(1);
-        game.PlayersWithHighestCard()[0].PlayerName.Should().Be(result);
     }
 
     [Theory]
@@ -51,7 +32,7 @@ public class PlayingCardsT
         game.AddPlayer(player1);
         game.AddPlayer(player2);
 
-        game.Result().players.Count.Should().Be(amountOfWinningPlayers);
-        if (amountOfWinningPlayers == 1) game.Result().players[0].PlayerName.Should().Be(nameOfWinningPlayer);
+        game.Result().Count.Should().Be(amountOfWinningPlayers);
+        if (amountOfWinningPlayers == 1) game.Result()[0].player.PlayerName.Should().Be(nameOfWinningPlayer);
     }
 }

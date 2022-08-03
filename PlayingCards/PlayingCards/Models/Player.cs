@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using PlayingCards.Extensions;
 
 namespace PlayingCards.Models;
 
@@ -14,21 +14,7 @@ public class Player
 
     public string PlayerName { get; }
 
-    public void GiveCards(string cardsString)
-    {
-        List<string> cardStrings = cardsString.Split().ToList();
-        List<Card>   cards       = new();
-
-        cardStrings.ForEach(s =>
-        {
-            char   suit  = s[^1];
-            string value = s.Remove(s.Length - 1);
-
-            cards.Add(new Card(value, suit));
-        });
-
-        GiveCards(cards);
-    }
+    public void GiveCards(string cardsString) => GiveCards(cardsString.ToCards());
 
     public void SetGameCards(List<Card> gameCards) => Hand.SetGameCards(gameCards);
 

@@ -67,12 +67,12 @@ public partial class CreatePlayerControl
     private void PreparePlayerNameForInput()
     {
         PlayerName.Text       = string.Empty;
-        PlayerName.Foreground = new SolidColorBrush(Colors.Black);
+        PlayerName.Foreground = new SolidColorBrush(Colors.DarkSlateGray);
     }
 
     private void ResetPlayerName()
     {
         PlayerName.Text       = SuggestedPlayerName;
-        PlayerName.Foreground = new SolidColorBrush(Colors.Gray);
+        PlayerName.Foreground = new SolidColorBrush(Colors.LightGray);
     }
 }

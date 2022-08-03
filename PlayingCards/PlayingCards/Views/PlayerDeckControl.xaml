@@ -8,21 +8,30 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance models:Player}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="2" Background="AntiqueWhite" HorizontalAlignment="Left">
+    <Grid Margin="2,2,0,0" Background="AntiqueWhite" HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="110" />
+            <ColumnDefinition Width="40" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Label Content="{Binding PlayerName}" />
-            <Label Content="{Binding Hand.Name}" />
-            <Label Content="Highest Card:" Margin="0,10,0,-5" />
-            <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding Hand.HighestCard.Value}" Padding="5,5,0,5" />
-                <Label Content="of" />
-                <Label Content="{Binding Hand.HighestCard.Suit}" Padding="0,5,5,5" />
-            </StackPanel>
-        </StackPanel>
+
+        <Label Grid.Column="0" Content="{Binding PlayerName}" FontSize="14"
+               VerticalAlignment="Center" HorizontalAlignment="Center"
+               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+               RenderTransformOrigin="0.5, 0.5" Margin="-100,-100,-85,-100">
+            <Label.RenderTransform>
+                <RotateTransform Angle="270" />
+            </Label.RenderTransform>
+        </Label>
+
+        <Label Grid.Column="0" Content="{Binding Hand.Name}" FontSize="10"
+               VerticalAlignment="Center" HorizontalAlignment="Center"
+               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+               RenderTransformOrigin="0.5, 0.5" Margin="-75,-100,-100,-100">
+            <Label.RenderTransform>
+                <RotateTransform Angle="270" />
+            </Label.RenderTransform>
+        </Label>
+
         <views:CardDeckControl Grid.Column="1" Cards="{Binding Hand.PlayerCards}" />
     </Grid>
 </UserControl>

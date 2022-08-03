@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\Cocon-Light.otf" />
+    <None Remove="Resources\Fonts\Cocon-Regular.otf" />
+    <None Remove="Resources\Fonts\CoconRegular.ttf" />
     <None Remove="Resources\Fonts\Marav2.ttf" />
     <None Remove="Resources\Fonts\Tobin Tax.otf" />
     <None Remove="Resources\Fonts\VTCGoblinHand.ttf" />
@@ -22,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Fonts\Cocon-Light.otf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Fonts\Marav2.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

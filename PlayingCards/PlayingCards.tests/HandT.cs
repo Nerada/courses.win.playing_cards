@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using PlayingCards.Models;
+﻿using PlayingCards.Models;
 
 namespace PlayingCards.tests;
 

@@ -1,16 +1,14 @@
-﻿<UserControl x:Class="PlayingCards.Views.GameDeckControl"
+﻿<UserControl x:Class="PlayingCards.Views.GameOptionsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
-             xmlns:views="clr-namespace:PlayingCards.Views"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid MinHeight="200">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <views:CardDeckControl Cards="{Binding GameCards}" />
-        </StackPanel>
+    <Grid>
+        <Button Content="Refresh" Command="{Binding ShuffleCommand}"
+                Height="80" VerticalAlignment="Top" />
     </Grid>
 </UserControl>
