@@ -25,7 +25,7 @@ public class GameViewModel : ViewModelBase
 
     public IReadOnlyList<Card> GameCards => _game.GameCards;
 
-    public IReadOnlyList<Player> Players => _game.Players;
+    public IReadOnlyList<PlayerViewModel> Players => _game.Players.Select(p => new PlayerViewModel(p, DeletePlayer)).ToList();
 
     public string Winners
     {
@@ -74,6 +74,12 @@ public class GameViewModel : ViewModelBase
 
         _game.AddPlayer(new Player(playerName));
 
+        AllPropertiesChanged();
+    }
+
+    private void DeletePlayer(Player player)
+    {
+        _game.RemovePlayer(player);
         AllPropertiesChanged();
     }
 

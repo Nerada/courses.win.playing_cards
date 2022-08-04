@@ -38,6 +38,12 @@ public class Game
         _players.Add(player);
     }
 
+    public void RemovePlayer(Player player)
+    {
+        _deckOfCards.AddRange(player.Hand.PlayerCards);
+        _players.Remove(player);
+    }
+
     public void GiveCards(string cardsString)
     {
         _gameCards.Clear();

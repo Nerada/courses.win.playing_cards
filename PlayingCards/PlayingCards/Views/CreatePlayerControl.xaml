@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
+             xmlns:extendedControls="clr-namespace:PlayingCards.Resources.ExtendedControls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -21,8 +22,9 @@
         <TextBox x:Name="PlayerName" Grid.Row="0" Grid.Column="1"
                  VerticalContentAlignment="Center" Foreground="Gray" GotFocus="OnPlayerNameFocus"
                  LostFocus="OnPlayerNameLostFocus" />
-        <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddPlayerCommand}"
-                CommandParameter="{Binding ElementName=PlayerName, Path=Text,UpdateSourceTrigger=PropertyChanged}"
-                Content="Add Player" Margin="0,2,0,0" />
+        <extendedControls:ExtendedButton Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                         Command="{Binding AddPlayerCommand}"
+                                         CommandParameter="{Binding ElementName=PlayerName, Path=Text,UpdateSourceTrigger=PropertyChanged}"
+                                         Content="Add Player" Margin="0,2,0,0" />
     </Grid>
 </UserControl>

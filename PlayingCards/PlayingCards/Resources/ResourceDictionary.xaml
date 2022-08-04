@@ -5,15 +5,6 @@
     <FontFamily x:Key="MainFont">/Resources/Fonts/#Cocon Light</FontFamily>
     <FontFamily x:Key="VikingFont">/Resources/Fonts/#Marathon</FontFamily>
 
-    <Style TargetType="{x:Type Button}">
-        <Setter Property="Height" Value="40" />
-        <Setter Property="Foreground" Value="DimGray" />
-        <Setter Property="Background" Value="Gainsboro" />
-        <Setter Property="FontFamily" Value="{StaticResource MainFont}" />
-        <Setter Property="FontSize" Value="26" />
-        <Setter Property="BorderThickness" Value="0" />
-    </Style>
-
     <Style TargetType="{x:Type Label}">
         <Setter Property="Foreground" Value="DarkSlateGray" />
         <Setter Property="FontFamily" Value="{StaticResource MainFont}" />

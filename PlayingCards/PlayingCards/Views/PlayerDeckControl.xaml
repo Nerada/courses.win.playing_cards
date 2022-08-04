@@ -4,15 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views="clr-namespace:PlayingCards.Views"
-             xmlns:models="clr-namespace:PlayingCards.Models"
+             xmlns:extendedControls="clr-namespace:PlayingCards.Resources.ExtendedControls"
+             xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance models:Player}"
+             d:DataContext="{d:DesignInstance viewModels:PlayerViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="2,2,0,0" Background="AntiqueWhite" HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+
+        <extendedControls:ExtendedButton Content="X" Command="{Binding DeletePlayerCommand}" VerticalAlignment="Top"
+                                         HorizontalAlignment="Left" FontSize="18" Background="Transparent"
+                                         Margin="3,0,0,0" />
 
         <Label Grid.Column="0" Content="{Binding PlayerName}" FontSize="14"
                VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -23,7 +28,7 @@
             </Label.RenderTransform>
         </Label>
 
-        <Label Grid.Column="0" Content="{Binding Hand.Name}" FontSize="10"
+        <Label Grid.Column="0" Content="{Binding HandName}" FontSize="10"
                VerticalAlignment="Center" HorizontalAlignment="Center"
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                RenderTransformOrigin="0.5, 0.5" Margin="-75,-100,-100,-100">
@@ -32,6 +37,6 @@
             </Label.RenderTransform>
         </Label>
 
-        <views:CardDeckControl Grid.Column="1" Cards="{Binding Hand.PlayerCards}" />
+        <views:CardDeckControl Grid.Column="1" Cards="{Binding PlayerCards}" />
     </Grid>
 </UserControl>

@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:PlayingCards.ViewModels"
+             xmlns:extendedControls="clr-namespace:PlayingCards.Resources.ExtendedControls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:GameViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button Content="Refresh" Command="{Binding ShuffleCommand}"
-                Height="80" VerticalAlignment="Top" />
+        <extendedControls:ExtendedButton Content="Refresh" Command="{Binding ShuffleCommand}"
+                                         Height="80" VerticalAlignment="Top" />
     </Grid>
 </UserControl>
