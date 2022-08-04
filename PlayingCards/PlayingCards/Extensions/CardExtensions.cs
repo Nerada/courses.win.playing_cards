@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
@@ -8,6 +9,23 @@ namespace PlayingCards.Extensions;
 
 public static class CardExtensions
 {
+    private static readonly ReadOnlyDictionary<Card.ValueType, int> CardWeight = new(new Dictionary<Card.ValueType, int>
+    {
+        {Card.ValueType.Ace, 13},
+        {Card.ValueType.King, 12},
+        {Card.ValueType.Queen, 11},
+        {Card.ValueType.Jack, 10},
+        {Card.ValueType.Ten, 9},
+        {Card.ValueType.Nine, 8},
+        {Card.ValueType.Eight, 7},
+        {Card.ValueType.Seven, 6},
+        {Card.ValueType.Six, 5},
+        {Card.ValueType.Five, 4},
+        {Card.ValueType.Four, 3},
+        {Card.ValueType.Three, 2},
+        {Card.ValueType.Two, 1}
+    });
+
     public static string ToValueString(this Card.ValueType value) => value switch
     {
         Card.ValueType.Ace   => "A",
@@ -79,4 +97,6 @@ public static class CardExtensions
         Card.SuitType.Spades   => '♠',
         _                      => throw new SwitchExpressionException()
     };
+
+    public static int Weight(this Card card) => CardWeight[card.Value];
 }

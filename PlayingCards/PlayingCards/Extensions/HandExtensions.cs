@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using PlayingCards.Models;
 
@@ -7,57 +8,44 @@ namespace PlayingCards.Extensions;
 
 public static class HandExtensions
 {
-    public static bool IsRoyalFlush(this IReadOnlyList<Card> cards)
+    private static readonly ReadOnlyDictionary<Hand.HandName, int> HandWeight = new(new Dictionary<Hand.HandName, int>
     {
-        if (!cards.IsFlush()) return false;
+        {Hand.HandName.RoyalFlush, 28},
+        {Hand.HandName.StraightFlush, 27},
+        {Hand.HandName.FourOfAKind, 26},
+        {Hand.HandName.FullHouse, 25},
+        {Hand.HandName.Flush, 24},
+        {Hand.HandName.Straight, 23},
+        {Hand.HandName.ThreeOfAKind, 22},
+        {Hand.HandName.TwoPair, 21},
+        {Hand.HandName.Pair, 20}
+    });
 
-        if (cards.All(c => c.Value != Card.ValueType.Ace)) return false;
-        if (cards.All(c => c.Value != Card.ValueType.King)) return false;
-        if (cards.All(c => c.Value != Card.ValueType.Queen)) return false;
-        if (cards.All(c => c.Value != Card.ValueType.Jack)) return false;
-        if (cards.All(c => c.Value != Card.ValueType.Ten)) return false;
+    public static bool IsRoyalFlush(this IReadOnlyList<Card> cards, ProcessedCards royalFlushCards)
+    {
+        if (!cards.IsStraightFlush(royalFlushCards)) return false;
 
+        List<Card> straightFlushCards = royalFlushCards.AllCards().OrderBy(c => c.Value).ToList().Take(5).ToList();
+
+        return straightFlushCards.Count == 5 && straightFlushCards.Count(c => c.Value == Card.ValueType.Ace) == 1;
+    }
+
+    public static bool IsStraightFlush(this IReadOnlyList<Card> cards, ProcessedCards straightFlushCards)
+    {
+        if (!straightFlushCards.RemainingCards(cards).IsFlush(straightFlushCards) || !straightFlushCards.GetHand(Hand.HandName.Flush).IsStraight(straightFlushCards)) return false;
+
+        IReadOnlyList<Card> straightFlush = straightFlushCards.GetHand(Hand.HandName.Straight);
+        straightFlushCards.Clear().AddHand(Hand.HandName.StraightFlush, straightFlush.ToList());
         return true;
     }
 
-    public static bool IsStraightFlush(this IReadOnlyList<Card> cards) => cards.GetFlushCards().IsStraight();
+    public static bool IsFourOfAKind(this IReadOnlyList<Card> cards, ProcessedCards fourOfAKindCards) => fourOfAKindCards.RemainingCards(cards).IsKind(4, fourOfAKindCards);
 
-    public static bool IsFourOfAKind(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Any(g => g.Count() == 4);
-
-    public static bool IsStraight(this IReadOnlyList<Card> cards) => cards.GetStraightCards().Count == 5;
-
-    public static bool IsFullHouse(this IReadOnlyList<Card> cards) => IsThreeOfAKind(cards) && IsPair(cards);
-
-    public static bool IsFlush(this IReadOnlyList<Card> cards) => cards.GetFlushCards().Count >= 5;
-
-    public static bool IsThreeOfAKind(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Any(g => g.Count() == 3);
-
-    public static bool IsTwoPairs(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Count(g => g.Count() == 2) == 2;
-
-    public static bool IsPair(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Value).Count(g => g.Count() == 2) == 1;
-
-    public static IReadOnlyList<Card> GetRoyalFlushCards(this IReadOnlyList<Card> cards) => cards.IsRoyalFlush()
-        ? new List<Card>
-        {
-            cards.First(c => c.Value == Card.ValueType.Ace),
-            cards.First(c => c.Value == Card.ValueType.King),
-            cards.First(c => c.Value == Card.ValueType.Queen),
-            cards.First(c => c.Value == Card.ValueType.Jack),
-            cards.First(c => c.Value == Card.ValueType.Ten)
-        }
-        : throw new InvalidOperationException();
-
-    public static IReadOnlyList<Card> GetStraightFlushCards(this IReadOnlyList<Card> cards) =>
-        cards.IsStraightFlush() ? cards.GetFlushCards().GetStraightCards() : throw new InvalidOperationException();
-
-    public static IReadOnlyList<Card> GetFourOfAKindCards(this IReadOnlyList<Card> cards) =>
-        cards.IsFourOfAKind() ? cards.GroupBy(c => c.Value).Where(g => g.Count() == 4).SelectMany(g => g).ToList() : throw new InvalidOperationException();
-
-    public static IReadOnlyList<Card> GetStraightCards(this IReadOnlyList<Card> cards)
+    public static bool IsStraight(this IReadOnlyList<Card> cards, ProcessedCards straightCards)
     {
         List<Card> orderedCardList = cards.DistinctBy(d => d.Value).OrderBy(c => c.Value).ToList();
 
-        if (orderedCardList.Count < 5) return new List<Card>();
+        if (orderedCardList.Count < 5) return false;
 
         List<Card> consecutiveCards = new();
 
@@ -66,11 +54,15 @@ public static class HandExtensions
             consecutiveCards.Add(orderedCardList[cardIndex]);
             for (int currentIndex = cardIndex; currentIndex < cardIndex + 5; currentIndex++)
             {
-                if (Hand.CardWeight[orderedCardList[currentIndex].Value] - 1 == Hand.CardWeight[orderedCardList[currentIndex + 1].Value])
+                if (orderedCardList[currentIndex].Weight() - 1 == orderedCardList[currentIndex + 1].Weight())
                 {
                     consecutiveCards.Add(orderedCardList[currentIndex + 1]);
 
-                    if (consecutiveCards.Count == 5) return consecutiveCards;
+                    if (consecutiveCards.Count == 5)
+                    {
+                        straightCards.AddHand(Hand.HandName.Straight, consecutiveCards);
+                        return true;
+                    }
                 }
                 else
                 {
@@ -80,20 +72,47 @@ public static class HandExtensions
             }
         }
 
-        return new List<Card>();
+        return false;
     }
 
-    public static IReadOnlyList<Card> GetFullHouseCards(this IReadOnlyList<Card> cards) =>
-        cards.IsFullHouse() ? cards.GetThreeOfAKindCards().Concat(cards.GetPairCards()).ToList() : throw new InvalidOperationException();
+    public static bool IsFullHouse(this IReadOnlyList<Card> cards, ProcessedCards fullHouseCards) =>
+        fullHouseCards.RemainingCards(cards).IsThreeOfAKind(fullHouseCards) && fullHouseCards.RemainingCards(cards).IsPair(fullHouseCards);
 
-    public static IReadOnlyList<Card> GetFlushCards(this IReadOnlyList<Card> cards) => cards.GroupBy(c => c.Suit == cards[0].Suit).OrderByDescending(g => g.Count()).First().ToList();
+    public static bool IsFlush(this IReadOnlyList<Card> cards, ProcessedCards flushCards)
+    {
+        List<Card> flush = flushCards.RemainingCards(cards).GroupBy(c => c.Suit).OrderByDescending(g => g.Count()).First().ToList();
 
-    public static IReadOnlyList<Card> GetThreeOfAKindCards(this IReadOnlyList<Card> cards) =>
-        cards.IsThreeOfAKind() ? cards.GroupBy(c => c.Value).Where(g => g.Count() == 3).SelectMany(g => g).ToList() : throw new InvalidOperationException();
+        if (flush.Count < 5) return false;
 
-    public static IReadOnlyList<Card> GetTwoPairsCards(this IReadOnlyList<Card> cards) =>
-        cards.IsTwoPairs() ? cards.GroupBy(c => c.Value).Where(g => g.Count() == 2).SelectMany(g => g).ToList() : throw new InvalidCastException();
+        flushCards.AddHand(Hand.HandName.Flush, flush);
+        return true;
+    }
 
-    public static IReadOnlyList<Card> GetPairCards(this IReadOnlyList<Card> cards) =>
-        cards.IsPair() ? cards.GroupBy(c => c.Value).Where(g => g.Count() == 2).SelectMany(g => g).ToList() : throw new InvalidOperationException();
+    public static bool IsThreeOfAKind(this IReadOnlyList<Card> cards, ProcessedCards threeOfAKindCards) => threeOfAKindCards.RemainingCards(cards).IsKind(3, threeOfAKindCards);
+
+    public static bool IsTwoPairs(this IReadOnlyList<Card> cards, ProcessedCards twoPairCards) =>
+        twoPairCards.RemainingCards(cards).IsPair(twoPairCards) && twoPairCards.RemainingCards(cards).IsPair(twoPairCards);
+
+    public static bool IsPair(this IReadOnlyList<Card> cards, ProcessedCards pairCards) => pairCards.RemainingCards(cards).IsKind(2, pairCards);
+
+    public static int Weight(this Hand.HandName handName) => HandWeight[handName];
+
+    private static bool IsKind(this IReadOnlyList<Card> cards, int amount, ProcessedCards kindCards)
+    {
+        Hand.HandName GetHand() => amount switch
+        {
+            2 => Hand.HandName.Pair,
+            3 => Hand.HandName.ThreeOfAKind,
+            4 => Hand.HandName.FourOfAKind,
+            _ => throw new InvalidOperationException()
+        };
+
+        List<Card>? kindList = cards.OrderBy(c => c.Value).GroupBy(c => c.Value).FirstOrDefault(g => g.Count() == amount)?.Select(g => g).ToList();
+
+        if (kindList == null || kindList.Count != amount) return false;
+
+        kindCards.AddHand(GetHand(), kindList);
+
+        return true;
+    }
 }

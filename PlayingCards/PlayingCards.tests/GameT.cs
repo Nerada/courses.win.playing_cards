@@ -21,6 +21,9 @@ public class GameT
 
         game.Result().Count.Should().Be(2);
 
+        player1.Hand.Name.Should().Be(Hand.HandName.Pair);
+        player2.Hand.Name.Should().Be(Hand.HandName.Pair);
+
         game.Result().Count(r => r.result.Hand         == Outcome.Result.Draw).Should().Be(2);
         game.Result().Single(r => r.result.HighestHand == Outcome.Result.Wins).player.PlayerName.Should().Be("Thor");
     }
@@ -38,7 +41,7 @@ public class GameT
         game.AddPlayer(player1);
         game.AddPlayer(player2);
 
-        game.GiveCards("3H 4H 5H 6H AH");
+        game.GiveCards("3H 4H 5H 6H AD");
 
         game.Result().Count.Should().Be(2);
 
@@ -46,6 +49,31 @@ public class GameT
         player1.Hand.Name.Should().Be(Hand.HandName.Pair);
         player2.Hand.Name.Should().Be(Hand.HandName.Pair);
         game.Result().Single(r => r.result.HighestHand == Outcome.Result.Wins).player.PlayerName.Should().Be("Loki");
+    }
+
+    [Theory]
+    [InlineData("8H 3H", "4H 9H",  "2C 4D 6H 8S 10C", "PlayerA")]
+    [InlineData("6H 3H", "2H 9H",  "4D 6H 8S 10C 2C", "PlayerA")]
+    [InlineData("2H 3H", "10H 3D", "4D 6H 8S 10C 2C", "PlayerB")]
+    public void HighPairOverLowPair(string playerACards, string playerBCards, string gameCards, string winningPlayer)
+    {
+        Player player1 = new("PlayerA");
+        Player player2 = new("PlayerB");
+
+        player1.GiveCards(playerACards);
+        player2.GiveCards(playerBCards);
+
+        Game game = new();
+        game.AddPlayer(player1);
+        game.AddPlayer(player2);
+        game.GiveCards(gameCards);
+
+        game.Result().Count.Should().Be(2);
+
+        player1.Hand.Name.Should().Be(Hand.HandName.Pair);
+        player2.Hand.Name.Should().Be(Hand.HandName.Pair);
+
+        game.Result().Single(r => r.result.HighestHand == Outcome.Result.Wins).player.PlayerName.Should().Be(winningPlayer);
     }
 
     [Fact]
