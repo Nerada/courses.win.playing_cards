@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------
 //     Author: Ramon Bollen
-//      File: PlayingCards.Extensions.cs
-// Created on: 20220722
+//      File: PlayingCards.GameExtensions.cs
+// Created on: 20220801
 // -----------------------------------------------
 
 using System;

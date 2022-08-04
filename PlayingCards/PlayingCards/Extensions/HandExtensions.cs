@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.HandExtensions.cs
+// Created on: 20220801
+// -----------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;

@@ -1,4 +1,10 @@
-﻿using System.Collections.Concurrent;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.ViewModelBase.cs
+// Created on: 20220723
+// -----------------------------------------------
+
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;

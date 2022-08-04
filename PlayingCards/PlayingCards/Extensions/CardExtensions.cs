@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.CardExtensions.cs
+// Created on: 20220803
+// -----------------------------------------------
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;

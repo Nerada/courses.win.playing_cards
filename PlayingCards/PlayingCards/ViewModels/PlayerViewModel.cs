@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.PlayerViewModel.cs
+// Created on: 20220804
+// -----------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;

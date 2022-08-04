@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.CardControl.xaml.cs
+// Created on: 20220723
+// -----------------------------------------------
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;

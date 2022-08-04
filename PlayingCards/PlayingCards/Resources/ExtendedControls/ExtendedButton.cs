@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------
 //     Author: Ramon Bollen
-//      File: DependencyProperties.ExtendedButton.cs
-// Created on: 20201201
+//      File: PlayingCards.ExtendedButton.cs
+// Created on: 20220804
 // -----------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;

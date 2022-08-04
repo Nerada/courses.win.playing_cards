@@ -1,4 +1,10 @@
-﻿using PlayingCards.Models;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.tests.GameViewModelT.cs
+// Created on: 20220803
+// -----------------------------------------------
+
+using PlayingCards.Models;
 using PlayingCards.ViewModels;
 
 namespace PlayingCards.tests;

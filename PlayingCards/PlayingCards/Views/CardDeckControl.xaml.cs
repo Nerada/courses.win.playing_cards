@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.CardDeckControl.xaml.cs
+// Created on: 20220801
+// -----------------------------------------------
+
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using PlayingCards.Models;

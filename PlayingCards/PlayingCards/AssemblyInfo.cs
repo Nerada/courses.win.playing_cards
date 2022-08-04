@@ -1,3 +1,9 @@
+// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.AssemblyInfo.cs
+// Created on: 20220801
+// -----------------------------------------------
+
 using System.Windows;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located

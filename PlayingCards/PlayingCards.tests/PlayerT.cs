@@ -1,3 +1,9 @@
+// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.tests.PlayerT.cs
+// Created on: 20220722
+// -----------------------------------------------
+
 using PlayingCards.Models;
 
 namespace PlayingCards.tests;

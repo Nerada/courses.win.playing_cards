@@ -1,4 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.GameDeckControl.xaml.cs
+// Created on: 20220801
+// -----------------------------------------------
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace PlayingCards.Views;
 

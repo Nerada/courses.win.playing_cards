@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.Game.cs
+// Created on: 20220801
+// -----------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography;

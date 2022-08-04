@@ -1,4 +1,10 @@
-﻿using PlayingCards.Models;
+﻿// -----------------------------------------------
+//     Author: Ramon Bollen
+//      File: PlayingCards.tests.HandT.cs
+// Created on: 20220723
+// -----------------------------------------------
+
+using PlayingCards.Models;
 
 namespace PlayingCards.tests;
 
