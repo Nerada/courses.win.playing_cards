@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -7,9 +8,10 @@ using PlayingCards.Models;
 
 namespace PlayingCards.Views;
 
+[ExcludeFromCodeCoverage]
 public partial class CardControl
 {
-    public static readonly DependencyProperty CardProperty = DependencyProperty.Register("Card", typeof(Card), typeof(CardControl), new PropertyMetadata(default(Card), OnCardChanged));
+    public static readonly DependencyProperty CardProperty = DependencyProperty.Register(nameof(Card), typeof(Card), typeof(CardControl), new PropertyMetadata(default(Card), OnCardChanged));
     private readonly       Image              _aceImage    = new() {Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/ace.png")), Opacity   = 0.4, UseLayoutRounding = true};
     private readonly       Image              _jackImage   = new() {Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/jack.png")), Opacity  = 0.4, UseLayoutRounding = true};
     private readonly       Image              _kingImage   = new() {Source = new BitmapImage(new Uri("pack://application:,,,/Resources/Images/king.png")), Opacity  = 0.4, UseLayoutRounding = true};

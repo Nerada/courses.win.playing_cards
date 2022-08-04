@@ -10,6 +10,9 @@ namespace PlayingCards;
 /// </summary>
 public partial class App
 {
+    /// <summary>
+    ///     Composition
+    /// </summary>
     private void OnStartup(object sender, StartupEventArgs e)
     {
         Game game = new();

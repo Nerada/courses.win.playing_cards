@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace PlayingCards.Views;
 /// <summary>
 ///     Interaction logic for CreatePlayerControl.xaml
 /// </summary>
+[ExcludeFromCodeCoverage]
 public partial class CreatePlayerControl
 {
     // ReSharper disable once StringLiteralTypo

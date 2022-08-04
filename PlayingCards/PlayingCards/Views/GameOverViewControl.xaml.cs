@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Windows;
 using PlayingCards.ViewModels;
@@ -9,6 +10,7 @@ namespace PlayingCards.Views;
 /// <summary>
 ///     Interaction logic for GameOverViewControl.xaml
 /// </summary>
+[ExcludeFromCodeCoverage]
 public partial class GameOverViewControl
 {
     private GameViewModel? _gameViewModel;
