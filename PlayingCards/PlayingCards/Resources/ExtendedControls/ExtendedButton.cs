@@ -4,6 +4,7 @@
 // Created on: 20201201
 // -----------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,13 +14,14 @@ namespace PlayingCards.Resources.ExtendedControls;
 /// <summary>
 ///     Based on: https://stackoverflow.com/questions/815797/add-dependency-property-to-control
 /// </summary>
+[ExcludeFromCodeCoverage]
 public sealed class ExtendedButton : Button
 {
     /// <summary>
     ///     Foreground color extension
     /// </summary>
     public new static readonly DependencyProperty ForegroundProperty =
-        DependencyProperty.Register("Foreground", typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), ForegroundColorChangedCallback));
+        DependencyProperty.Register(nameof(Foreground), typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), ForegroundColorChangedCallback));
 
     public static readonly DependencyProperty HasForegroundColorProperty =
         DependencyProperty.Register("HasForegroundColor", typeof(bool), typeof(ExtendedButton), new PropertyMetadata(false));
@@ -28,7 +30,7 @@ public sealed class ExtendedButton : Button
     ///     Background color extension
     /// </summary>
     public new static readonly DependencyProperty BackgroundProperty =
-        DependencyProperty.Register("Background", typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), BackgroundColorChangedCallback));
+        DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), BackgroundColorChangedCallback));
 
     public static readonly DependencyProperty HasBackgroundColorProperty =
         DependencyProperty.Register("HasBackgroundColor", typeof(bool), typeof(ExtendedButton), new PropertyMetadata(false));
@@ -40,7 +42,7 @@ public sealed class ExtendedButton : Button
         DependencyProperty.Register("HasBackgroundHoverColor", typeof(bool), typeof(ExtendedButton), new PropertyMetadata(false));
 
     public static readonly DependencyProperty BackgroundHoverColorProperty =
-        DependencyProperty.Register("BackgroundHoverColor", typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), BackgroundHoverColorChangedCallback));
+        DependencyProperty.Register(nameof(BackgroundHoverColor), typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), BackgroundHoverColorChangedCallback));
 
 
     /// <summary>
@@ -50,7 +52,7 @@ public sealed class ExtendedButton : Button
         DependencyProperty.Register("HasForegroundHoverColor", typeof(bool), typeof(ExtendedButton), new PropertyMetadata(false));
 
     public static readonly DependencyProperty ForegroundHoverColorProperty =
-        DependencyProperty.Register("ForegroundHoverColor", typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), ForegroundHoverColorChangedCallback));
+        DependencyProperty.Register(nameof(ForegroundHoverColor), typeof(Brush), typeof(ExtendedButton), new PropertyMetadata(default(Brush), ForegroundHoverColorChangedCallback));
 
     /// <summary>
     ///     Image extension
@@ -59,10 +61,10 @@ public sealed class ExtendedButton : Button
         DependencyProperty.Register("HasImage", typeof(bool), typeof(ExtendedButton), new PropertyMetadata(false));
 
     public static readonly DependencyProperty ImageProperty =
-        DependencyProperty.Register("Image", typeof(DrawingImage), typeof(ExtendedButton), new PropertyMetadata(default(DrawingImage), ImageChangedCallback));
+        DependencyProperty.Register(nameof(Image), typeof(DrawingImage), typeof(ExtendedButton), new PropertyMetadata(default(DrawingImage), ImageChangedCallback));
 
     public static readonly DependencyProperty ImageMarginProperty =
-        DependencyProperty.Register("ImageMargin", typeof(Thickness), typeof(ExtendedButton), new PropertyMetadata(default(Thickness), ImageChangedCallback));
+        DependencyProperty.Register(nameof(ImageMargin), typeof(Thickness), typeof(ExtendedButton), new PropertyMetadata(default(Thickness), ImageChangedCallback));
 
     /// <summary>
     ///     Image hover extension
@@ -71,7 +73,7 @@ public sealed class ExtendedButton : Button
         DependencyProperty.Register("HasImageHover", typeof(bool), typeof(ExtendedButton), new PropertyMetadata(false));
 
     public static readonly DependencyProperty ImageHoverProperty =
-        DependencyProperty.Register("ImageHover", typeof(DrawingImage), typeof(ExtendedButton), new PropertyMetadata(default(DrawingImage), ImageHoverChangedCallback));
+        DependencyProperty.Register(nameof(ImageHover), typeof(DrawingImage), typeof(ExtendedButton), new PropertyMetadata(default(DrawingImage), ImageHoverChangedCallback));
 
     /// <summary>
     ///     Additional content extension

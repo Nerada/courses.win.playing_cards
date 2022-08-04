@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Input;
 using PlayingCards.Models;
@@ -6,6 +7,7 @@ using Prism.Commands;
 
 namespace PlayingCards.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class GameViewModel : ViewModelBase
 {
     private readonly Game _game;

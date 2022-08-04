@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 using PlayingCards.Models;
 using PlayingCards.ViewModels;
 using PlayingCards.Views;
@@ -8,6 +9,7 @@ namespace PlayingCards;
 /// <summary>
 ///     http://www.tddbuddy.com/katas/Poker%20Hands.pdf
 /// </summary>
+[ExcludeFromCodeCoverage]
 public partial class App
 {
     /// <summary>

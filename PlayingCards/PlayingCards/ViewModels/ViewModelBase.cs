@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace PlayingCards.ViewModels;
@@ -8,6 +9,7 @@ namespace PlayingCards.ViewModels;
 /// <summary>
 ///     View model base class.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class ViewModelBase : INotifyPropertyChanged
 {
     private static readonly ConcurrentDictionary<string, PropertyChangedEventArgs>

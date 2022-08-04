@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using PlayingCards.Models;
 using Prism.Commands;
 
 namespace PlayingCards.ViewModels;
 
+[ExcludeFromCodeCoverage]
 public class PlayerViewModel
 {
     private readonly Player _player;
