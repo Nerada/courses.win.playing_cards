@@ -41,6 +41,7 @@ public class Game
         if (ReservedCardsForGame + CardsPerPlayer * (_players.Count + 1) > _deckOfCards.Count) throw new InvalidOperationException("Not enough cards in a deck");
 
         if (player.Hand.Cards.Count == 0) player.GiveCards(GetRandomCards(CardsPerPlayer));
+        player.SetGameCards(_gameCards);
         _players.Add(player);
     }
 
