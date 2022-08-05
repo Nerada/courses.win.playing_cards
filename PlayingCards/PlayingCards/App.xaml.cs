@@ -21,6 +21,7 @@ public partial class App
     /// <summary>
     ///     Composition
     /// </summary>
+    //TODO: Fix composition
     private void OnStartup(object sender, StartupEventArgs e)
     {
         Game game = new();

@@ -1,4 +1,4 @@
-# Playing Cards [![Build Status](https://dev.azure.com/nerada/GitHub_Public/_apis/build/status/Nerada.courses.win.playing_cards?branchName=master)](https://dev.azure.com/nerada/GitHub_Public/_build/latest?definitionId=21&branchName=master)
+# Playing Cards [![Build Status](https://dev.azure.com/nerada/GitHub_Public/_apis/build/status/Nerada.katas.win.playing_cards?branchName=master)](https://dev.azure.com/nerada/GitHub_Public/_build/latest?definitionId=23&branchName=master)
 Practicing test driven development together with the team.
 
 ## Details
