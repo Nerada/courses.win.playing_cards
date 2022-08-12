@@ -1,5 +1,5 @@
 # Playing Cards [![Build Status](https://dev.azure.com/nerada/GitHub_Public/_apis/build/status/Nerada.katas.win.playing_cards?branchName=master)](https://dev.azure.com/nerada/GitHub_Public/_build/latest?definitionId=23&branchName=master)
-Practicing test driven development together with the team.
+Practicing test driven development.
 
 ## Details
 http://www.tddbuddy.com/katas/Poker%20Hands.pdf
@@ -33,5 +33,9 @@ e.g.<br />
 -----
 4. Expand the game to support 2-8 players<br />
 -----
+
+#### Result<br/>
+<img src="PlayingCards.png" width="400" />
+
 ### ChangeLog
 0.1.0 First working version<br />
