@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
+using Humanizer;
 using PlayingCards.Models;
 using Prism.Commands;
 
@@ -28,7 +29,7 @@ public class PlayerViewModel
 
     public string PlayerName => _player.PlayerName;
 
-    public string HandName => _player.Hand.Name.ToString();
+    public string HandName => _player.Hand.Name.Humanize();
 
     public IReadOnlyList<Card> PlayerCards => _player.Hand.PlayerCards;
 }
