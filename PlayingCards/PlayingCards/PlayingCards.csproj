@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Humanizer" Version="2.14.1" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
@@ -73,5 +74,18 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+
+  <Target Name="SetSourceRevisionId" BeforeTargets="BeforeResGen" Condition="'$(SourceRevisionId)' == ''"> 
+    <Message Importance="High" Text="Running meta data script" /> 
+    <PropertyGroup>
+      <ScriptLocation>https://raw.githubusercontent.com/Nerada/devops.pipelines/master/build-scripts/buildMetaData.ps1</ScriptLocation>
+    </PropertyGroup>
+
+    <Exec Command="powershell -NonInteractive -ExecutionPolicy Bypass Invoke-Command -ScriptBlock ([Scriptblock]::Create(((Invoke-WebRequest -Uri '$(ScriptLocation)' -UseBasicParsing).Content)))" ConsoleToMSBuild="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="SourceRevisionId" /> 
+    </Exec> 
+
+    <Message Importance="High" Text="SourceRevisionId set from project file to: $(SourceRevisionId)" /> 
+  </Target>
 
 </Project>
