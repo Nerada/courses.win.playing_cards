@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" x:Name="ErrorOutput" Content="{Binding Error}" Foreground="DarkSlateGray" FontSize="15" />
+        <Label Grid.Column="0" Content="{Binding Error}" Foreground="DarkSlateGray" FontSize="15" />
         <Label Grid.Column="2" Content="{Binding Winners}" Foreground="White" FontSize="15" />
     </Grid>
 </UserControl>

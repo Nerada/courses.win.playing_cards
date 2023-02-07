@@ -23,6 +23,7 @@ public class ViewModelBase : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    // ReSharper disable once UnusedMethodReturnValue.Global
     protected bool Set<T>(ref T field, T newValue, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, newValue)) return false;

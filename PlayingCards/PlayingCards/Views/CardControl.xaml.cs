@@ -52,13 +52,13 @@ public partial class CardControl
         UpdateSuit(SuitBottomLeft);
     }
 
-    private void UpdateSuit(Label suitLabel)
+    private void UpdateSuit(ContentControl suitLabel)
     {
         suitLabel.Content    = Card.Suit.ToSuitChar().ToString();
         suitLabel.Foreground = Card.Suit.ToSuitColor();
     }
 
-    private void UpdateValue(Label valueLabel)
+    private void UpdateValue(ContentControl valueLabel)
     {
         valueLabel.Content    = Card.Value.ToValueString();
         valueLabel.Foreground = Card.Suit.ToSuitColor();

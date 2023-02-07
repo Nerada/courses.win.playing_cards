@@ -79,7 +79,7 @@ public sealed class ExtendedButton : Button
     ///     Additional content extension
     /// </summary>
     public static readonly DependencyProperty Content2Property =
-        DependencyProperty.Register("Content2", typeof(string), typeof(ExtendedButton), new PropertyMetadata(default(string), Content2ChangedCallBack));
+        DependencyProperty.Register(nameof(Content2), typeof(string), typeof(ExtendedButton), new PropertyMetadata(default(string), Content2ChangedCallBack));
 
 
     public bool HasForegroundColor => (bool)GetValue(HasForegroundColorProperty);
@@ -161,7 +161,7 @@ public sealed class ExtendedButton : Button
 
     private static void Content2ChangedCallBack(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
     {
-        if (!(dependencyObject as ExtendedButton is { } extendedButton)) return;
+        if (dependencyObject as ExtendedButton is not { } extendedButton) return;
 
         extendedButton.Content += (string)args.NewValue;
     }
